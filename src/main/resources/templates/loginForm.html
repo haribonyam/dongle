@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <script src="https://kit.fontawesome.com/22f660ea99.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/loginForm.css">
+    <link  rel="stylesheet" href="/css/footer.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
@@ -27,5 +28,7 @@
         </ul>
     </form>
 </div>
+
+<footer th:replace="footer :: footer"></footer>
 </body>
 </html>
