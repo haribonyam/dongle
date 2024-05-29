@@ -1,0 +1,112 @@
+ body{
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size:14px;
+            background-color: #f5f6f7;
+            line-height: 1.5em;
+            color : #222;
+            margin: 0;
+        }
+
+        a{
+            text-decoration: none;
+            color: #222;
+        }
+        li{
+            list-style: none;
+        }
+
+        /* Google web font CDN*/
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap');
+
+        *{
+            box-sizing: border-box; /*전체에 박스사이징*/
+            outline: none; /*focus 했을때 테두리 나오게 */
+        }
+
+        .join-form-container{
+            width: 100%; /* 전체 너비로 설정 */
+            max-width: 400px; /* 최대 너비 설정 */
+            margin: auto; /* 가운데 정렬 */
+            padding: 0 20px;
+            margin-bottom: 20px;
+        }
+
+        .join-form-container .field{
+            margin :5px 0; /*상하로 좀 띄워주기*/
+            position: relative;
+        }
+
+        .join-form-container b{
+            display: block; /*수직 정렬하기 */
+            margin-bottom: 5px;
+        }
+
+        .join-form-container input{
+            border: 1px solid #dadada;
+            padding: 15px;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .join-form-container input[type=button],
+        .join-form-container input[type=submit]{
+            background-color: #f07838;
+            color:#fff;
+        }
+
+        .join-form-container input:focus{
+            border: 1px solid #f07838;
+        }
+
+        .join-form-container .field.birth div{ /*field 이면서 birth*/
+            display: flex;
+            gap:10px; /*간격 벌려줄때 공식처럼 사용핟나 */
+        }
+
+        .join-form-container .field.tel-number div {
+            display: flex;
+        }
+
+        .join-form-container .field.tel-number div input:nth-child(1){
+            flex:2;
+        }
+
+        .join-form-container .field.tel-number div input:nth-child(2){
+            flex:1;
+        }
+
+        .join-form-container .field.gender div{
+            border: 1px solid #dadada;
+            padding: 15px 5px;
+            background-color: #fff;
+        }
+
+        .join-form-container .placehold-text{
+            display: block; /*span 으로 감싸서 크기영역을 블록요소로 만들어ㅜ저야한다*/
+            position:relative;
+        }
+
+        .user-email-icon,.user-password-icon,.user-passcheck-icon{
+            width:20px;
+            height:20px;
+            text-align: center;
+            line-height: 10px;
+            font-size:25px;
+            position:absolute;
+            right:0;
+            bottom:20px;
+            margin-right:15px;
+        }
+
+        .join-form-container .email-confirm,
+        .nickname-confirm{
+            font-size:12px;
+            display:none;
+        }
+
+
+        @media (max-width:768px) {
+            .join-form-container{
+                width: 90%; /* 전체 너비로 설정 */
+            }
+        }
