@@ -1,0 +1,30 @@
+.footer-container{
+
+   margin:0 auto;
+    width:100%;
+    align-items: center;
+}
+
+.footer-box{
+    width : 50%;
+    margin: 0 auto;
+    color:#949494;
+    text-align: center;
+    border-top:1px solid #ccc;
+    padding-top: 15px;
+}
+.footer-policy{
+    font-size: 12px;
+    display: flex;
+    justify-content: space-evenly;
+
+}
+.policy-inner{
+    cursor: pointer;
+}
+
+.policy-inner:hover{
+    color:black;
+    font-weight:700;
+
+}
