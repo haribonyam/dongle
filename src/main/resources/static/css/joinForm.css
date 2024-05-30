@@ -103,7 +103,12 @@
             font-size:12px;
             display:none;
         }
-
+        .join-complete{
+            cursor:pointer;
+        }
+        .join-complete:hover{
+            opacity:0.9;
+        }
 
         @media (max-width:768px) {
             .join-form-container{

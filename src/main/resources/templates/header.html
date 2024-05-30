@@ -7,7 +7,7 @@
     <title>헤더</title>
 </head>
 <body>
-<div class="header-container" th:fragment="header">
+<div class="header-container" th:fragment="header" th:remove="tag">
     <div class="header-box">
         <div class="header-logo" onclick="location.href='/'">로고</div>
         <div class="header-sign" onclick="location.href='/login'">로그인/회원가입</div>

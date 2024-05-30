@@ -1,11 +1,14 @@
 package com.dongle.dongle.dto;
 
+import com.dongle.dongle.entitiy.MemberEntity;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.lang.reflect.Member;
+
 @Data
-@RequiredArgsConstructor
-public class memberDto {
+public class MemberDto {
+
 
     private Long id;
 
@@ -18,4 +21,5 @@ public class memberDto {
     private String role;
 
     private String town;
+
 }
