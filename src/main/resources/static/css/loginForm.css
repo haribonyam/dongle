@@ -98,6 +98,17 @@ body{
             bottom:20px;
             margin-right:15px;
         }
+         .go-join{
+
+                    text-align: center;
+                    color:#999;
+                }
+                .go-join a{
+                    color:#999;
+                }
+                .go-join a:hover{
+                    color:#000
+                }
 
 
         @media (max-width:768px) {
