@@ -28,15 +28,15 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public boolean existByNickname(String nickName) {
-        boolean isExist = memberRepository.existsBynickname(nickName);
+        boolean isExist = memberRepository.existsByNickname(nickName);
 
-        return false;
+        return isExist;
     }
 
     @Override
     public boolean existByEmail(String email) {
 
-        boolean isExist = memberRepository.existsByemail(email);
+        boolean isExist = memberRepository.existsByEmail(email);
 
         return isExist;
     }
