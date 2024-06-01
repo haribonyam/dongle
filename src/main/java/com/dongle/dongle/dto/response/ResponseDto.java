@@ -32,5 +32,15 @@ public class ResponseDto {
 
     }
 
+             public static ResponseEntity<ResponseDto> duplicatedId() {
+                ResponseDto responseDto = new ResponseDto(ResponseCode.DUPLICATED_ID, ResponseMessage.DUPLICATED_ID);
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(responseDto);
+            }
+
+            public static ResponseEntity<ResponseDto> success() {
+                ResponseDto responseDto = new ResponseDto(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+                return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+            }
+
 
 }
