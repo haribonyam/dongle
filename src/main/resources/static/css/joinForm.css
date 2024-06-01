@@ -86,7 +86,7 @@
             position:relative;
         }
 
-        .user-email-icon,.user-password-icon,.user-passcheck-icon{
+        .user-email-icon,.user-password-icon,.user-passcheck-icon,.user-nickname-icon{
             width:20px;
             height:20px;
             text-align: center;

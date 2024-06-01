@@ -14,11 +14,10 @@
         <ul class="join-form-box">
             <li class="field">
                 <b>이메일</b>
-                <input type="text" class="user-email" name="email">
+                <input type="text" class="user-email" name="email" id="email">
                 <div class="user-email-icon"><i class="fa-regular fa-user"></i></div>
-
             </li>
-            <li class="field email-confirm">하하하하</li>
+            <li class="field email-confirm"></li>
             <li class="field">
                 <b>비밀번호</b>
                 <input class="userpw" type="password" name="password">
@@ -31,9 +30,10 @@
             </li>
             <li class="field">
                 <b>닉네임</b>
-                <input type="text" name="nickname">
+                <input type="text" name="nickname" id="nickname">
+                <div class="user-nickname-icon"><i class="fa-regular fa-user"></i></div>
             </li>
-            <li class="field nickname-confirm">하하하하</li>
+            <li class="field nickname-confirm"></li>
             <li class="join-complete">
                 <input type="submit" value="가입하기" class="join-complete">
             </li>
@@ -43,5 +43,71 @@
 
 <footer th:replace="footer :: footer"></footer>
 </body>
+<script>
+document.getElementById('email').addEventListener('blur', async (event) => {
+  const email = event.target.value;
+  if(email != ""){
+  await checkEmail(email);
+  }
+});
+
+document.getElementById('nickname').addEventListener('blur', async (event) => {
+  const nickname = event.target.value;
+  if(nickname != ""){
+  await checkNickname(nickname);
+    }
+});
+
+async function checkEmail(email) {
+  try {
+    const response = await fetch(`/api/member/email/${encodeURIComponent(email)}`);
+    const data = await response.json();
+
+    if (response.status === 200) {
+      createMessage("사용 가능한 이메일입니다.", 'email-confirm','user-email-icon',data.code);
+    } else if (response.status === 409) {
+      createMessage("사용할 수 없는 이메일입니다.", 'email-confirm','user-email-icon',data.code);
+    } else {
+      alert("예상치 못한 오류가 발생했습니다.");
+    }
+  } catch (error) {
+    console.error('이메일 확인 중 오류:', error);
+    alert("이메일 확인에 실패했습니다. 나중에 다시 시도하세요.");
+  }
+}
+
+async function checkNickname(nickname) {
+  try {
+    const response = await fetch(`/api/member/nickname/${encodeURIComponent(nickname)}`);
+    const data = await response.json();
+
+    if (response.status === 200) {
+      createMessage("사용 가능한 닉네임입니다.", 'nickname-confirm','user-nickname-icon',data.code);
+    } else if (response.status === 409) {
+      createMessage("사용할 수 없는 닉네임입니다.", 'nickname-confirm','user-nickname-icon',data.code);
+    } else {
+      alert("예상치 못한 오류가 발생했습니다.");
+    }
+  } catch (error) {
+    console.error('닉네임 확인 중 오류:', error);
+    alert("닉네임 확인에 실패했습니다. 나중에 다시 시도하세요.");
+  }
+}
+
+function createMessage(message, className,iconName,code) {
+  const element = document.querySelector(`.${className}`);
+  const icon = document.querySelector(`.${iconName}`);
+  element.textContent = message;
+  if (code === "SU") {
+    element.style.color = "#009900";
+    icon.style.color = "#009900";
+  }else{
+    element.style.color = "#ff3300";
+    icon.style.color = "#ff3300";
+  }
+  element.style.display = "block";
+}
+
+</script>
 </html>
 
