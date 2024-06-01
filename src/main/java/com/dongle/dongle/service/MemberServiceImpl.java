@@ -40,4 +40,15 @@ public class MemberServiceImpl implements MemberService {
 
         return isExist;
     }
+/*
+    @Override
+    public String findNicknameByEmail(String email) {
+        MemberEntity memberEntity = memberRepository.findByEmail(email);
+        if(memberEntity !=null){
+            return memberEntity.getNickname();
+        }
+        return null;
+    }
+
+ */
 }
