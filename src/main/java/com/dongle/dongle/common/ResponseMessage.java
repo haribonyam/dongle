@@ -7,7 +7,6 @@ public interface ResponseMessage {
     String VALIDATION_FAIL = "Validation Fail";
     String DUPLICATED_ID = "Duplicated Id";
 
-
     String DATABASE_ERROR = "Database error";
 
 }
