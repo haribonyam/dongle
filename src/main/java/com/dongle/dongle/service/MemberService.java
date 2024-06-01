@@ -8,4 +8,6 @@ public interface MemberService {
     boolean existByNickname(String nickname);
 
     boolean existByEmail(String email);
+
+    //  String findNicknameByEmail(String email);
 }

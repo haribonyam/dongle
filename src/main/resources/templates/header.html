@@ -10,7 +10,8 @@
 <div class="header-container" th:fragment="header" th:remove="tag">
     <div class="header-box">
         <div class="header-logo" onclick="location.href='/'">로고</div>
-        <div class="header-sign" onclick="location.href='/login'">로그인/회원가입</div>
+        <div th:if="${nickname != 'anonymousUser'}" class="header-sign" th:onclick="|location.href='/logout'|" th:text="${nickname}">로그아웃</div>
+        <div th:if="${nickname == 'anonymousUser'}" class="header-sign" onclick="location.href='/login'">로그인/회원가입</div>
     </div>
 
 </div>

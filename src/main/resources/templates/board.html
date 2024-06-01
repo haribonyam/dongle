@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>보드</title>
+    <link rel="stylesheet" href="/css/board.css">
+</head>
+<body>
+<article class="board-container" th:fragment="board">
+    <div class="board-box">
+        <div class="board-location">
+            <!--지역선택-->
+            <select>
+                <option>시/도 선택</option>
+            </select>
+            <select>
+                <option>구 선택</option>
+            </select>
+            <select>
+                <option>동 선택</option>
+            </select>
+            <div>적용</div>
+        </div>
+        <!--글-->
+        <div class="board-contents">
+            <div>사진</div>
+            <ul>
+                <li>안녕하세요<div>1</div></li>
+                <li>심규환</li>
+                <li>서울시 서대문구</li>
+            </ul>
+        </div>
+        <div class="board-contents">
+            <div>사진</div>
+            <ul>
+                <li>안녕하세요<div>1</div></li>
+                <li>심규환</li>
+                <li>서울시 서대문구</li>
+            </ul>
+        </div>
+    </div>
+</article>
+
+</body>
+</html>
