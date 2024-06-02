@@ -5,6 +5,7 @@ import com.dongle.dongle.dto.MemberDto;
 import com.dongle.dongle.entitiy.MemberEntity;
 import com.dongle.dongle.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,12 @@ public class MemberServiceImpl implements MemberService {
         boolean isExist = memberRepository.existsByEmail(email);
 
         return isExist;
+    }
+
+    @Override
+    public String getUserNickName() {
+
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 /*
     @Override
