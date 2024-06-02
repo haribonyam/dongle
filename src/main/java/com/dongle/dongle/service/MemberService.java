@@ -9,5 +9,6 @@ public interface MemberService {
 
     boolean existByEmail(String email);
 
+    String getUserNickName();
     //  String findNicknameByEmail(String email);
 }

@@ -18,10 +18,11 @@ public class HomeController {
 
     @GetMapping("/")
     public String mainPage(Model model){
-        String nickname= SecurityContextHolder.getContext().getAuthentication().getName();
-        System.out.println(nickname);
-        //String nickname =memberService.findNicknameByEmail(email);
+
+        String nickname= memberService.getUserNickName(); //spring security USER 정보 받아옴
+
         model.addAttribute("nickname",nickname);
+
         return "main";
     }
     @GetMapping("/join")
@@ -47,4 +48,7 @@ public class HomeController {
         return "error";
     }
 
+
+    @GetMapping("/test")
+    public String testPage(){return "test";}
 }

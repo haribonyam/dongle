@@ -1,6 +1,7 @@
 package com.dongle.dongle.dto;
 
 import com.dongle.dongle.entitiy.MemberEntity;
+import com.dongle.dongle.entitiy.PostsEntity;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -21,5 +22,6 @@ public class MemberDto {
     private String role;
 
     private String town;
+
 
 }
