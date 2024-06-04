@@ -8,25 +8,30 @@
 <body>
 <article class="board-container" th:fragment="board2">
     <div class="board-box">
-        <div class="board-location">
+        <div class="board-location" id="boardLocation" onClick="locationSelect()">서대문구<div id="rotate-item" class="arrow-icon"><i class="fa-solid fa-angle-up"></i></div></div>
+        <div class="location-list" id="locationList">지역선택 넣어야함</div>
+        <div class="board-bar">
             <!--지역선택-->
-            <select id="provinceSelect">
-                <option>시/도 선택</option>
-            </select>
-            <select id="citySelect">
-                <option>구 선택</option>
-            </select>
-            <select id="townSelect">
-                <option>동 선택</option>
-            </select>
-            <button onclick="applyFilters()">적용</button>
+            <div>
+                <div class="board-icon"><i class="fa-solid fa-house"></i></div>
+                <div class="board-text">홈</div>
+            </div>
+            <div>
+                <div class="board-icon"><i class="fa-solid fa-location-crosshairs"></div>
+                <div class="board-text">내주변</div>
+            </div>
+            <div>
+                <div class="board-icon"><i class="fa-solid fa-bars"></i></div>
+                <div class="board-text">내정보</div>
+            </div>
         </div>
         <!--글-->
-        <div class="board-contents" id="boardContents">
-            <!-- 게시물 목록이 여기에 동적으로 추가될 것입니다. -->
+        <div class="board-list" id="boardList">
+
         </div>
-        <!-- 페이징 버튼 -->
-        <div id="pagination"></div>
+
+
+
     </div>
 </article>
 
@@ -34,6 +39,7 @@
 
 <script>
     // 페이지 로딩 시 초기 게시물 목록과 페이징을 가져옵니다.
+    console.log("ddd");
     window.onload = function() {
         loadPosts(0);
     };
@@ -59,12 +65,10 @@
         posts.forEach(post => {
             const postElement = document.createElement('div');
             postElement.innerHTML = `
-                <div>${post.title}</div>
-                <ul>
-                    <li>${post.content}</li>
-                    <li>${post.author}</li>
-                    <li>${post.location}</li>
-                </ul>
+                <div><a href="/post/${post.id}">${post.title}</a></div>
+                <div>${post.content}</div>
+                <div>작성자: ${post.author.nickname}</div>
+                <hr>
             `;
             boardContents.appendChild(postElement);
         });
@@ -78,7 +82,7 @@
             const pageButton = document.createElement('button');
             pageButton.textContent = i + 1;
             pageButton.onclick = function() {
-                loadPosts(i);
+                loadPosts(i); // 여기서 i가 아닌 currentPage를 사용해야 합니다.
             };
             pagination.appendChild(pageButton);
         }

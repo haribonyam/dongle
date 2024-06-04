@@ -49,6 +49,6 @@ public class HomeController {
     }
 
 
-    @GetMapping("/test")
-    public String testPage(){return "test";}
+    @GetMapping("/delete")
+    public String testPage(){return "delete";}
 }

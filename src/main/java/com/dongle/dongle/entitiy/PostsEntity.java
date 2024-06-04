@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -23,22 +24,22 @@ public class PostsEntity {
     @JoinColumn(name = "author_nickname", referencedColumnName = "nickname", nullable = false)
     private MemberEntity author;
 
-    @Column(name="title",nullable = false, length = 255)
+    @Column(name="title", nullable = false, length = 255)
     private String title;
 
     @Column(name="content")
     private String content;
 
-    @Column(name="views",nullable = false)
+    @Column(name="views", nullable = false)
     private int views = 0;
 
     @Column(name = "comments_count", nullable = false)
     private int commentsCount;
 
-    @Column(name="town",length = 100)
+    @Column(name="town", length = 100)
     private String town;
 
-    @Column(name="category",length = 100)
+    @Column(name="category", length = 100)
     private String category;
 
     @Column(name = "created_date", nullable = false)
@@ -47,6 +48,11 @@ public class PostsEntity {
     @Column(name = "updated_date", nullable = false)
     private LocalDateTime updatedDate;
 
+    @Column(name="file_path")
+    private String path;
+
+    @OneToMany(mappedBy = "authPost", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FileEntity> files;
 
     @PrePersist
     protected void onCreate() {
@@ -58,6 +64,7 @@ public class PostsEntity {
     protected void onUpdate() {
         updatedDate = LocalDateTime.now();
     }
+
     public static PostsEntity toPostsEntity(PostsDto postsDto, MemberEntity memberEntity) {
         PostsEntity postsEntity = new PostsEntity();
 
@@ -71,7 +78,6 @@ public class PostsEntity {
 
         return postsEntity;
     }
-
 
 }
 

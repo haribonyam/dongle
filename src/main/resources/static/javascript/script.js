@@ -1,43 +1,18 @@
-<!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>보드</title>
-</head>
-<body>
-<article class="board-container" th:fragment="board">
-    <div class="board-box">
-        <div class="board-location" id="boardLocation" onClick="locationSelect()">서대문구<div id="rotate-item" class="arrow-icon"><i class="fa-solid fa-angle-up"></i></div></div>
-        <div class="location-list" id="locationList">지역선택 넣어야함</div>
-        <div class="board-bar">
-            <!--지역선택-->
-            <div>
-                <div class="board-icon"><i class="fa-solid fa-house"></i></div>
-                <div class="board-text">홈</div>
-            </div>
-            <div>
-                <div class="board-icon"><i class="fa-solid fa-location-crosshairs"></i></div>
-                <div class="board-text">내주변</div>
-            </div>
-            <div>
-                <div class="board-icon"><i class="fa-solid fa-bars"></i></div>
-                <div class="board-text">내정보</div>
-            </div>
-        </div>
-        <!--글-->
-        <div class="board-list" id="boardList">
-
-        </div>
+//지역선택
+function locationSelect(){
+        const rotate = document.getElementById("rotate-item");
+        const locationList = document.getElementById("locationList");
+        if (locationList.style.display === "none") {
+        locationList.style.display = "block";
+        rotate.classList.add("rotate-180");
+    } else {
+        locationList.style.display = "none";
+        rotate.classList.remove("rotate-180");
+    }
+    }
 
 
-
-    </div>
-</article>
-
-</body>
-
-<script>
-    // 페이지 로딩 시 초기 게시물 목록과 페이징을 가져옵니다.
+// 페이지 로딩 시 초기 게시물 목록과 페이징을 가져옵니다.
     console.log("ddd");
     window.onload = function() {
         loadPosts(0);
@@ -45,7 +20,7 @@
 
     // RESTful API를 호출하여 페이징 처리된 게시물 목록을 가져옵니다.
     function loadPosts(page) {
-        const size = 10; // 페이지당 게시물 수
+        const size = 5; // 페이지당 게시물 수
         fetch(`/api/post/list?page=${page}&size=${size}`)
             .then(response => response.json())
             .then(data => {
@@ -59,22 +34,35 @@
 
     // 게시물 목록을 동적으로 생성하여 HTML에 추가합니다.
     function renderPosts(posts) {
-        const boardContents = document.getElementById('boardContents');
-        boardContents.innerHTML = ''; // 기존 목록 삭제
+        const box = document.getElementById("boardList");
+        box.innerHTML='';
         posts.forEach(post => {
-            const postElement = document.createElement('div');
-            postElement.innerHTML = `
-                <div><a href="/post/${post.id}">${post.title}</a></div>
-                <div>${post.content}</div>
-                <div>작성자: ${post.author.nickname}</div>
-                <hr>
-            `;
-            boardContents.appendChild(postElement);
+
+                const postElement = document.createElement('div');
+                postElement.classList.add('board-contents');
+
+                // 내부 HTML 설정
+                postElement.innerHTML = `
+                    <div>사진</div>
+                    <ul>
+                        <li onclick='location.href="/post/"+${post.id}'>${post.title}<div>${post.commentsCount}</div></li>
+                        <li>${post.nickname}</li>
+                        <li>${post.town}</li>
+                    </ul>
+                `;
+
+                // board-location 클래스를 가진 요소에 추가
+
+                box.appendChild(document.querySelector('.board-location').appendChild(postElement));
         });
+
     }
 
     // 페이징 버튼을 동적으로 생성하여 HTML에 추가합니다.
     function renderPagination(totalPages, currentPage) {
+                    const page = document.createElement('div');
+                    page.id="pagination";
+                    document.querySelector('.board-box').appendChild(page);
         const pagination = document.getElementById('pagination');
         pagination.innerHTML = ''; // 기존 버튼 삭제
         for (let i = 0; i < totalPages; i++) {
@@ -109,5 +97,3 @@
             })
             .catch(error => console.error('Error fetching data:', error));
     }
-</script>
-</html>

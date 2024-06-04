@@ -1,5 +1,6 @@
 package com.dongle.dongle.controller;
 
+import com.dongle.dongle.dto.PostsDto;
 import com.dongle.dongle.entitiy.PostsEntity;
 import com.dongle.dongle.service.PostsService;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,9 @@ public class RestPostController {
     private final PostsService postsService;
 
     @GetMapping("/list")
-    public ResponseEntity<Page<PostsEntity>> getAllPosts(@RequestParam(defaultValue = "0") int page,
-                                               @RequestParam(defaultValue = "10") int size) {
-        Page<PostsEntity> products = postsService.getAllPosts(PageRequest.of(page, size));
-        return ResponseEntity.ok(products);
+    public ResponseEntity<Page<PostsDto>> getAllPosts(@RequestParam(defaultValue = "0") int page,
+                                                         @RequestParam(defaultValue = "5") int size) {
+        Page<PostsDto> posts = postsService.getAllPosts(PageRequest.of(page, size));
+        return ResponseEntity.ok(posts);
     }
 }
