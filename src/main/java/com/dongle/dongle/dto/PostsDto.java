@@ -40,8 +40,6 @@ public class PostsDto {
 
     private MemberEntity memberEntity;
 
-    private String filePath;
-
     private List<String> filePaths;
 
     public static PostsDto postSummary(Long postId,String nickname,String title, int views,List<String> filePaths,

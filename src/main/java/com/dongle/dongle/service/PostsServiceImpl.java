@@ -41,6 +41,7 @@ public class PostsServiceImpl implements  PostsService{
             MemberEntity memberEntity = memberRepository.findByNickname(postsDto.getNickname());
             postsDto.setMemberEntity(memberEntity);
             PostsEntity postsEntity = PostsEntity.toPostsEntity(postsDto, memberEntity);
+            /*
             List<MultipartFile> files = postsDto.getFiles();
             String thumbPath="";
             if(files !=null){
@@ -57,14 +58,16 @@ public class PostsServiceImpl implements  PostsService{
 
                 }
             }
-            postsEntity.setPath(thumbPath);
+
+
+             */
             postsRepository.save(postsEntity);
             //files 전처리
-            List<String> fileUrls = new ArrayList<>();
+            //List<String> fileUrls = new ArrayList<>();
             for (MultipartFile file : postsDto.getFiles()) {
                 String fileUrl = fileService.fileSave(file);
                 fileService.save(new FileEntity(null,postsEntity,fileUrl));
-                fileUrls.add(fileUrl);
+               // fileUrls.add(fileUrl);
             }
 
 

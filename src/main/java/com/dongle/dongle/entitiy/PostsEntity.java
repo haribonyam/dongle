@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -43,26 +44,23 @@ public class PostsEntity {
     private String category;
 
     @Column(name = "created_date", nullable = false)
-    private LocalDateTime createdDate;
+    private LocalDate createdDate;
 
     @Column(name = "updated_date", nullable = false)
-    private LocalDateTime updatedDate;
-
-    @Column(name="file_path")
-    private String path;
+    private LocalDate updatedDate;
 
     @OneToMany(mappedBy = "authPost", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FileEntity> files;
 
     @PrePersist
     protected void onCreate() {
-        createdDate = LocalDateTime.now();
-        updatedDate = LocalDateTime.now();
+        createdDate = LocalDate.now();
+        updatedDate = LocalDate.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-        updatedDate = LocalDateTime.now();
+        updatedDate = LocalDate.now();
     }
 
     public static PostsEntity toPostsEntity(PostsDto postsDto, MemberEntity memberEntity) {

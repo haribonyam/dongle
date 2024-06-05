@@ -22,10 +22,11 @@
 .arrow-icon{
     margin-bottom:3px;
     padding-left:3px;
+    transform: rotate(180deg);
     transition: transform 0.5s ease;
 }
 .rotate-180 {
-    transform: rotate(180deg);
+    transform: rotate(360deg);
 }
 .location-list {
     display: none;
@@ -51,7 +52,7 @@
     padding-bottom: 5px;
     border-radius: 5px;
     background-color: coral;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
 }
 .board-bar div{
@@ -73,6 +74,12 @@
     color:white;
 }
 /*컨텐츠*/
+.board-img{
+    background-position:center;
+    background-size:contain;
+    background-repeat :no-repeat;
+}
+
 .board-contents{
     display:flex;
     margin-top:10px;
@@ -120,3 +127,37 @@
     font-size:12px;
     color:#ccc;
 }
+
+.write-page{
+      margin-top:10px;
+      right:0;
+      margin-right:15px;
+      width:90px;
+      height:30px;
+      border:none;
+      border-radius: 8px;
+      color:white;
+      font-size: 13px;
+      font-weight: 700;
+      background-color: coral;
+      cursor: pointer;
+      margin-bottom:5px;
+}
+
+/*page*/
+#pagination{
+    display:flex;
+    justify-content:center;
+    margin-top:10px;
+}
+#pagination button{
+      background-color :#f5f6f7;
+      cursor:pointer;
+      margin:0 3px;
+      border : none;
+}
+
+#pagination button:hover{
+    color:#ccc;
+}
+

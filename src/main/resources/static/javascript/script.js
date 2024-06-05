@@ -43,9 +43,9 @@ function locationSelect(){
 
                 // 내부 HTML 설정
                 postElement.innerHTML = `
-                    <div>사진</div>
+                    <div style="background-image: url('${post.filePaths[0]}');" class='board-img'></div>
                     <ul>
-                        <li onclick='location.href="/post/"+${post.id}'>${post.title}<div>${post.commentsCount}</div></li>
+                        <li onclick='location.href="/posts/"+${post.id}'>${post.title}<div>${post.commentsCount}</div></li>
                         <li>${post.nickname}</li>
                         <li>${post.town}</li>
                     </ul>
@@ -60,17 +60,20 @@ function locationSelect(){
 
     // 페이징 버튼을 동적으로 생성하여 HTML에 추가합니다.
     function renderPagination(totalPages, currentPage) {
-                    const page = document.createElement('div');
-                    page.id="pagination";
-                    document.querySelector('.board-box').appendChild(page);
         const pagination = document.getElementById('pagination');
         pagination.innerHTML = ''; // 기존 버튼 삭제
+        console.log(currentPage);
         for (let i = 0; i < totalPages; i++) {
             const pageButton = document.createElement('button');
             pageButton.textContent = i + 1;
             pageButton.onclick = function() {
-                loadPosts(i); // 여기서 i가 아닌 currentPage를 사용해야 합니다.
+                loadPosts(i);
+
             };
+
+             if(i==currentPage){
+             pageButton.style.color="#ccc";
+             }
             pagination.appendChild(pageButton);
         }
     }
@@ -97,3 +100,46 @@ function locationSelect(){
             })
             .catch(error => console.error('Error fetching data:', error));
     }
+
+
+
+    //postWrite
+
+        function triggerFileInput() {
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.name = 'files';
+        fileInput.accept = 'image/*';
+        fileInput.style.display = 'none';
+
+        fileInput.onchange = function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const previewContainer = document.createElement('div');
+                    previewContainer.className = 'photo-preview';
+
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    previewContainer.appendChild(img);
+
+                    const removeButton = document.createElement('button');
+                    removeButton.className = 'remove-photo';
+                    removeButton.innerHTML = 'X';
+                    removeButton.onclick = function() {
+                        document.querySelector('.photo-container').removeChild(previewContainer);
+                        fileInput.remove();
+                    };
+                    previewContainer.appendChild(removeButton);
+
+                    document.querySelector('.photo-container').appendChild(previewContainer);
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+        document.body.appendChild(fileInput);
+        fileInput.click();
+    }
+

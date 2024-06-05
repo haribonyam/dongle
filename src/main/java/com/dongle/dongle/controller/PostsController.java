@@ -2,6 +2,7 @@ package com.dongle.dongle.controller;
 
 
 import com.dongle.dongle.dto.PostsDto;
+import com.dongle.dongle.service.MemberService;
 import com.dongle.dongle.service.PostsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,9 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PostsController {
 
     private final PostsService postsService;
+    private final MemberService memberService;
 
+    @GetMapping("/write")
+    public String contentWrite(Model model){
+        String nickname = memberService.getUserNickName();
+        model.addAttribute("nickname",nickname);
+        return "postWrite";
+    }
     @PostMapping("/save")
-    public String contentsSave(PostsDto postsDto){
+    public String contentSave(PostsDto postsDto){
         postsService.savePost(postsDto);
 
         return "redirect:/";
@@ -34,9 +42,10 @@ public class PostsController {
     }
 
     @PostMapping("/delete/{id}")
-    public String contentsDelete(@PathVariable Long id){
+    public String contentDelete(@PathVariable Long id){
          postsService.deleteContentById(id);
         return"redirect:/";
     }
+
 
 }
