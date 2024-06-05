@@ -1,4 +1,4 @@
-.wirte-box{
+.write-box{
     width:80%;
     margin :0 auto;
     background-color: #f5f6f7;
@@ -97,18 +97,21 @@
     display: flex;
     justify-content: center;
     align-items: centers;
+    margin-bottom: 80px;
 
 }
 .write-button{
-    width:150px;
-    height:40px;
-    border:none;
-    border-radius: 8px;
-    color:white;
-    font-size: 14px;
-    font-weight: 700;
-    background-color: coral;
-    cursor: pointer;
+      width:150px;
+      height:40px;
+      border:none;
+      border-radius: 8px;
+      text-align: center;
+      line-height: 40px;
+      color:white;
+      font-size: 14px;
+      font-weight: 700;
+      background-color: coral;
+      cursor: pointer;
 }
 
 
