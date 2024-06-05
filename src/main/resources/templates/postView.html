@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/postView.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <script src="/javascript/script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문서</title>
+</head>
+<body>
+<div th:replace="header :: header"></div>
+<div class="view-box">
+    <ul class="view-content">
+        <li class="view-bar">
+            <div class="view-category">주제표시</div>
+        </li>
+        <li class="view-user">
+            사용자정보
+        </li>
+        <li class="view-title" th:text="${postView.title}"></li>
+        <li><textarea class="view-text" readonly th:text="${postView.content}"></textarea></li>
+        <li><div class="view-photoList">사진리스트</div></li>
+    </ul>
+    <div class="photo-container"></div>
+</div>
+
+<form action="/posts/save" enctype="multipart/form-data" >
+    <div class="view-comment">
+        <div class="view-comment-list">
+            <div>닉네임</div><div>댓글내용</div><div>따봉?</div>
+        </div>
+        <div class="write-comment">
+            <!--SSR CSR ?? 뭐로하지..-->
+            <!--<input type="text" class="write-comment-text " placeholder="댓글을 입력해주세요."><div><img src="send.png" class="img-send"></div>
+                익명 댓글 만들까 말까...
+            -->
+            <input type="text" class="write-comment-text " placeholder="댓글을 입력해주세요."><div><img src="send.png" class="img-send"></div>
+        </div>
+
+    </div>
+</form>
+<div th:replace="footer :: footer"></div>
+</body>
+</html>

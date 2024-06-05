@@ -38,7 +38,7 @@ public class PostsController {
     ){
         PostsDto postsDto = postsService.getPostById(id);
         model.addAttribute("postView",postsDto);
-        return "contents";
+        return "postView";
     }
 
     @PostMapping("/delete/{id}")
