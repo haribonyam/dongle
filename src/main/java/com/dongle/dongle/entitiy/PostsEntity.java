@@ -6,7 +6,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -23,41 +25,44 @@ public class PostsEntity {
     @JoinColumn(name = "author_nickname", referencedColumnName = "nickname", nullable = false)
     private MemberEntity author;
 
-    @Column(name="title",nullable = false, length = 255)
+    @Column(name="title", nullable = false, length = 255)
     private String title;
 
     @Column(name="content")
     private String content;
 
-    @Column(name="views",nullable = false)
+    @Column(name="views", nullable = false)
     private int views = 0;
 
     @Column(name = "comments_count", nullable = false)
     private int commentsCount;
 
-    @Column(name="town",length = 100)
+    @Column(name="town", length = 100)
     private String town;
 
-    @Column(name="category",length = 100)
+    @Column(name="category", length = 100)
     private String category;
 
     @Column(name = "created_date", nullable = false)
-    private LocalDateTime createdDate;
+    private LocalDate createdDate;
 
     @Column(name = "updated_date", nullable = false)
-    private LocalDateTime updatedDate;
+    private LocalDate updatedDate;
 
+    @OneToMany(mappedBy = "authPost", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FileEntity> files;
 
     @PrePersist
     protected void onCreate() {
-        createdDate = LocalDateTime.now();
-        updatedDate = LocalDateTime.now();
+        createdDate = LocalDate.now();
+        updatedDate = LocalDate.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-        updatedDate = LocalDateTime.now();
+        updatedDate = LocalDate.now();
     }
+
     public static PostsEntity toPostsEntity(PostsDto postsDto, MemberEntity memberEntity) {
         PostsEntity postsEntity = new PostsEntity();
 
@@ -68,7 +73,6 @@ public class PostsEntity {
         postsEntity.setTitle(postsDto.getTitle());
         postsEntity.setTown(postsDto.getTown());
         postsEntity.setViews(postsDto.getCommentsCount());
-
         return postsEntity;
     }
 

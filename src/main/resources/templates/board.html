@@ -3,36 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <title>보드</title>
-    <link rel="stylesheet" href="/css/board.css">
 </head>
 <body>
 <article class="board-container" th:fragment="board">
     <div class="board-box">
-        <div class="board-location">
+        <div class="board-location" id="boardLocation" onClick="locationSelect()">서대문구<div id="rotate-item" class="arrow-icon"><i class="fa-solid fa-angle-up"></i></div></div>
+        <div class="location-list" id="locationList">지역선택 넣어야함</div>
+        <div class="board-bar">
             <!--지역선택-->
-            <select>
-                <option>시/도 선택</option>
-            </select>
-            <select>
-                <option>구 선택</option>
-            </select>
-            <select>
-                <option>동 선택</option>
-            </select>
-            <div>적용</div>
+            <div>
+                <div class="board-icon"><i class="fa-solid fa-house"></i></div>
+                <div class="board-text">홈</div>
+            </div>
+            <div>
+                <div class="board-icon"><i class="fa-solid fa-location-crosshairs"></i></div>
+                <div class="board-text">내주변</div>
+            </div>
+            <div>
+                <div class="board-icon"><i class="fa-solid fa-bars"></i></div>
+                <div class="board-text">내정보</div>
+            </div>
         </div>
         <!--글-->
-        <div class="board-contents">
-            <div>사진</div>
-            <ul>
-                <li>안녕하세요<div>1</div></li>
-                <li>심규환</li>
-                <li>서울시 서대문구</li>
-            </ul>
-        </div>
-
+        <div class="board-list" id="boardList"></div>
+        <!--글쓰기-->
+        <div class="write-page" onclick='location.href="/posts/write"'>글쓰기</div>
+        <!--페이지 버튼-->
+        <div id="pagination"></div>
     </div>
 </article>
 
 </body>
+
+<script>
+    // 페이지 로딩 시 초기 게시물 목록과 페이징을 가져옵니다.
+    console.log("ddd");
+    window.onload = function() {
+        loadPosts(0);
+    };
+
+    // RESTful API를 호출하여 페이징 처리된 게시물 목록을 가져옵니다.
+    function loadPosts(page) {
+        const size = 10; // 페이지당 게시물 수
+        fetch(`/api/post/list?page=${page}&size=${size}`)
+            .then(response => response.json())
+            .then(data => {
+                // 게시물 목록을 표시합니다.
+                renderPosts(data.content);
+                // 페이징 버튼을 표시합니다.
+                renderPagination(data.totalPages, page);
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+
+    // 게시물 목록을 동적으로 생성하여 HTML에 추가합니다.
+    function renderPosts(posts) {
+        const boardContents = document.getElementById('boardContents');
+        boardContents.innerHTML = ''; // 기존 목록 삭제
+        posts.forEach(post => {
+            const postElement = document.createElement('div');
+            postElement.innerHTML = `
+                <div><a href="/post/${post.id}">${post.title}</a></div>
+                <div>${post.content}</div>
+                <div>작성자: ${post.author.nickname}</div>
+                <hr>
+            `;
+            boardContents.appendChild(postElement);
+        });
+    }
+
+    // 페이징 버튼을 동적으로 생성하여 HTML에 추가합니다.
+    function renderPagination(totalPages, currentPage) {
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = ''; // 기존 버튼 삭제
+        for (let i = 0; i < totalPages; i++) {
+            const pageButton = document.createElement('button');
+            pageButton.textContent = i + 1;
+            pageButton.onclick = function() {
+                loadPosts(i); // 여기서 i가 아닌 currentPage를 사용해야 합니다.
+            };
+            pagination.appendChild(pageButton);
+        }
+    }
+
+    // 필터링 적용 버튼을 클릭할 때 호출되는 함수입니다.
+    function applyFilters() {
+        const province = document.getElementById('provinceSelect').value;
+        const city = document.getElementById('citySelect').value;
+        const town = document.getElementById('townSelect').value;
+        // 필터링된 게시물을 가져오고 페이징을 초기화합니다.
+        loadFilteredPosts(0, province, city, town);
+    }
+
+    // 필터링된 게시물을 가져오고 페이징을 초기화합니다.
+    function loadFilteredPosts(page, province, city, town) {
+        const size = 10; // 페이지당 게시물 수
+        fetch(`/api/post/filter?page=${page}&size=${size}&province=${province}&city=${city}&town=${town}`)
+            .then(response => response.json())
+            .then(data => {
+                // 게시물 목록을 표시합니다.
+                renderPosts(data.content);
+                // 페이징 버튼을 표시합니다.
+                renderPagination(data.totalPages, page);
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+</script>
 </html>

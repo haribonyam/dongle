@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="stylesheet" href="/css/postWrite.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <script src="/javascript/script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시글 수정</title>
+</head>
+<body>
+<div th:replace="header :: header"></div>
+<form th:action="@{/posts/modifyPro/__${postModify.id}__}" method="post" enctype="multipart/form-data">
+  <div class="write-box">
+    <ul class="write-content">
+      <li class="write-category">
+        <div class="write-category-text"></div>
+        <div class="write-category-list">
+          <span class="write-category-item" onclick="setCategory(this)">맛집</span>
+          <span class="write-category-item" onclick="setCategory(this)">동네이야기</span>
+          <span class="write-category-item" onclick="setCategory(this)">기타</span>
+        </div>
+      </li>
+      <li th:if="${nickname=='anonymousUser'}"><div>익명</div><div><input type="password" placeholder="비밀번호를 입력하세요"></div></li>
+      <li><input name="title" class="write-title" type="text" placeholder="제목을 입력해 주세요." th:value="${postModify.title}"></li>
+      <li><textarea name="content" class="write-text" placeholder="전하고 싶은 동네 이야기를 작성해 주세요." th:text="${postModify.content}"></textarea></li>
+      <li><div class="write-photo" onclick="triggerFileInput()">사진 올리기</div></li>
+    </ul>
+    <div class="photo-container" th:each="path : ${postModify.filePaths}">
+      <img th:src="@{${path}}">
+    </div>
+  </div>
+  <div class="write-button-container" onclick="submitForm()"><div class="write-button">글등록</div></div>
+  <input type="hidden" name="category" id="setCategory">
+</form>
+<div th:replace="footer :: footer"></div>
+</body>
+<script>
+  function setCategory(category) {
+
+  var categoryItems = document.getElementsByClassName("write-category-item");
+
+  for (var i = 0; i < categoryItems.length; i++) {
+      categoryItems[i].style.opacity = "1";
+  }
+
+  category.style.opacity = "0.5";
+
+  document.getElementById("setCategory").value = category.innerText;
+  console.log(document.getElementById("setCategory").value);
+     }
+ function submitForm() {
+ document.querySelector('form').submit();
+}
+</script>
+</html>

@@ -17,15 +17,14 @@ public class FileEntity {
 
     @ManyToOne
     @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
-    PostsEntity authPost;
+    private PostsEntity authPost;
 
     @Column(name="file_path")
     private String path;
 
-
     public FileEntity(Long id, PostsEntity postsEntity, String fileUrl) {
         this.id = id;
-        this.authPost =postsEntity;
+        this.authPost = postsEntity;
         this.path = fileUrl;
     }
 }

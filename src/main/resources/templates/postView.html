@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/postView.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <script src="/javascript/script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문서</title>
+</head>
+<body>
+<div th:replace="header :: header"></div>
+<div class="view-box">
+    <ul class="view-content">
+        <li class="view-bar">
+            <div class="view-category">주제표시</div>
+            <div class="view-post">
+                <span th:onclick="'postModify(' + ${postView.id} + ')'">수정</span>
+                <span th:onclick="'postDelete(' + ${postView.id} + ')'">삭제</span>
+            </div>
+        </li>
+        <li class="view-user">
+            <div class="view-user-profile"><img src="/icon/downloadsvg.svg"></div>
+            <div class="view-user-info">
+                <ul>
+                    <li th:text="${postView.nickname}"></li>
+                    <li th:text="${postView.town}"></li>
+                </ul>
+            </div>
+        </li>
+        <li class="view-title"><div th:text="${postView.title}"></div><div><span>작성일 </span><span th:text="${postView.createdDate}"></span><span>·</span><span>조회 </span><span th:text="${postView.views}"></span></div></li>
+        <li><textarea class="view-text" readonly th:text="${postView.content}"></textarea></li>
+        <li>
+            <div class="view-photoList">
+                <div th:each="path : ${postView.filePaths}">
+                <img class="preview-image" th:src="@{${path}}" alt="Post Image">
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="photo-container"></div>
+</div>
+<!--
+<div th:each="path : ${postView.filePaths}">
+    <img th:src="@{${path}}" alt="Post Image">
+</div>
+-->
+
+<form action="/posts/save" enctype="multipart/form-data" >
+    <div class="view-comment">
+        <div class="view-comment-list">
+            <div>닉네임</div><div>댓글내용</div><div>따봉?</div>
+        </div>
+        <div class="write-comment">
+            <!--SSR CSR ?? 뭐로하지..-->
+            <!--<input type="text" class="write-comment-text " placeholder="댓글을 입력해주세요."><div><img src="send.png" class="img-send"></div>
+                익명 댓글 만들까 말까...
+            -->
+            <input type="text" class="write-comment-text " placeholder="댓글을 입력해주세요."><div><img src="/icon/send.png" class="img-send"></div>
+        </div>
+
+    </div>
+</form>
+
+<!-- 이미지 팝업 -->
+<div id="myModal" class="img-view-box">
+    <span class="img-view-close">&times;</span>
+    <img class="img-view-content" id="modalImage">
+    <div id="caption"></div>
+    <div class="img-view-download"><img src="/icon/downloadsvg.svg"></div>
+</div>
+<div th:replace="footer :: footer"></div>
+</body>
+<script th:inline="javascript">
+    // 이미지 클릭 시 모달 창 열기
+    var images = document.querySelectorAll(".preview-image");
+    var modal = document.getElementById("myModal");
+    var modalImg = document.getElementById("modalImage");
+    var captionText = document.getElementById("caption");
+    var downloadButton = document.getElementById("downloadButton");
+    var closeButton = document.getElementsByClassName("img-view-close")[0];
+
+    images.forEach(function(image) {
+        image.addEventListener("click", function() {
+            modal.style.display = "block";
+            modalImg.src = this.src;
+            captionText.innerHTML = this.alt;
+        });
+    });
+
+    // 모달 창 닫기
+    closeButton.onclick = function() {
+        modal.style.display = "none";
+    };
+
+    // 모달 창 외부 클릭 시 닫기
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+
+ function postDelete(id){
+       if(confirm("게시글을 삭제하시겠습니까?")){
+        location.href="/posts/delete/"+id;
+       }
+    }
+ function postModify(id){
+    if(confirm("게시글을 수정하시겠습니까?")){
+        location.href="/posts/modify/"+id;
+       }
+    }
+</script>
+</html>

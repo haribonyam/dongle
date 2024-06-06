@@ -27,10 +27,11 @@ public class FileServiceImpl implements FileService{
         try {
 
             String fileName = UUID.randomUUID()+file.getOriginalFilename();
-            String filePath =System.getProperty("user.dir")+uploadPath +"/"+ fileName;
-            File dest = new File(filePath);
+            String savePath = System.getProperty("user.dir")+uploadPath +"/";
+            File dest = new File(savePath,fileName);
             file.transferTo(dest);
-            return filePath;
+
+            return "/img/"+fileName;
         } catch (IOException e) {
             e.printStackTrace();
             return null;

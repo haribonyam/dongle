@@ -1,0 +1,152 @@
+.write-box{
+    width:80%;
+    margin :0 auto;
+    background-color: #f5f6f7;
+}
+.write-content{
+    list-style-type: none;
+    max-width:800px;
+}
+.write-category{
+    height:50px;
+    display: flex;
+    align-items: center;
+    border-bottom:1px solid #ccc;
+}
+.write-category-list{
+    margin-left:5px;
+}
+.write-category-list span{
+    margin : 0 5px;
+    border-radius: 20px;
+    padding:5px;
+    color:white;
+    font-size: 14px;
+    font-weight: 700;
+    background-color: coral;
+    cursor: pointer;
+}
+
+.write-content li{
+    padding : 10px 0;
+}
+
+.write-title{
+    border: none;
+    background-color: #f5f6f7;
+    height:40px;
+    font-size:25px;
+}
+.write-title:focus{outline: none;}
+
+.write-text{
+    border : none;
+    background-color: #f5f6f7;
+    resize:none;
+    height:400px;
+    width:95%;
+    overflow-y: auto;
+    box-sizing: border-box;
+    font-size:17px;
+}
+.write-text:focus{outline: none;}
+
+.write-content li:last-child{
+        margin-top:8px;
+        border-top: 1px solid #ccc;
+}
+
+.write-photo{
+   width:100px;
+   text-align: center;
+   height:25px;
+   border-radius: 20px;
+   border: 1px solid black;
+   cursor: pointer;
+}
+.write-photo:hover{
+    background-color: #ccc;
+}
+
+
+
+
+.file-preview{
+    max-width:800px;
+    width:100%;
+    height: 200px;
+    display:flex;
+
+
+}
+
+.preview{
+        width:100%;
+        max-width: 180px;
+        min-width:120px;
+        height: 150px;
+        margin-left:5px;
+        background-image:url("plus.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+.write-button-container
+{   padding-top:15px;
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: centers;
+    margin-bottom: 80px;
+
+}
+.write-button{
+      width:150px;
+      height:40px;
+      border:none;
+      border-radius: 8px;
+      text-align: center;
+      line-height: 40px;
+      color:white;
+      font-size: 14px;
+      font-weight: 700;
+      background-color: coral;
+      cursor: pointer;
+}
+
+
+/* asdasdasdsaasdasdasdadasdasdasdasdasdasadsds*/
+    .photo-container {
+        margin-top: 10px;
+        display:flex;
+        flex-wrap:wrap;
+    }
+
+    .photo-preview {
+        position: relative;
+        display: inline-block;
+        margin: 10px;
+    }
+
+    .photo-preview img {
+        max-width: 150px;
+        max-height: 100px;
+        display: block;
+        object-fit: contain;
+    }
+
+    .remove-photo {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 50%;
+        width: 23px;
+        height: 23px;
+        text-align: center;
+        line-height: 18px;
+        font-size: 14px;
+    }
