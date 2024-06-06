@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+
 @Repository
 public interface PostsRepository extends JpaRepository<PostsEntity, Long> {
 
@@ -19,4 +21,9 @@ public interface PostsRepository extends JpaRepository<PostsEntity, Long> {
     @Modifying
     @Query("update PostsEntity p set p.views = p.views + 1 where p.id = :id")
     int updateViews(@Param("id") Long id);
+
+    @Modifying
+    @Query("update PostsEntity p set p.title = :title, p.content = :content, p.updatedDate = :updatedDate where p.id = :id")
+    void updatePost(@Param("id") Long id, @Param("title") String title, @Param("content") String content, @Param("updatedDate") LocalDate updatedDate);
+
 }

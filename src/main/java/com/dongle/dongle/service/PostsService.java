@@ -17,10 +17,12 @@ public interface PostsService {
 
     Page<PostsDto> getAllPosts(PageRequest pageRequest);
 
-    void deleteContentById(Long id);
+    void deletePostById(Long id);
 
 
     PostsDto getPostById(Long id);
 
     int updateViews(Long id);
+
+    void updatePost(Long id,PostsDto postsDto);
 }

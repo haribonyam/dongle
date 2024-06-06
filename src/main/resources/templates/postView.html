@@ -15,6 +15,10 @@
     <ul class="view-content">
         <li class="view-bar">
             <div class="view-category">주제표시</div>
+            <div class="view-post">
+                <span th:onclick="'postModify(' + ${postView.id} + ')'">수정</span>
+                <span th:onclick="'postDelete(' + ${postView.id} + ')'">삭제</span>
+            </div>
         </li>
         <li class="view-user">
             <div class="view-user-profile"><img src="/icon/downloadsvg.svg"></div>
@@ -68,7 +72,7 @@
 </div>
 <div th:replace="footer :: footer"></div>
 </body>
-<script>
+<script th:inline="javascript">
     // 이미지 클릭 시 모달 창 열기
     var images = document.querySelectorAll(".preview-image");
     var modal = document.getElementById("myModal");
@@ -96,5 +100,16 @@
             modal.style.display = "none";
         }
     };
+
+ function postDelete(id){
+       if(confirm("게시글을 삭제하시겠습니까?")){
+        location.href="/posts/delete/"+id;
+       }
+    }
+ function postModify(id){
+    if(confirm("게시글을 수정하시겠습니까?")){
+        location.href="/posts/modify/"+id;
+       }
+    }
 </script>
 </html>

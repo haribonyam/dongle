@@ -38,33 +38,14 @@ public class PostsServiceImpl implements  PostsService{
     public void savePost(PostsDto postsDto) {
 
         try {
-            //member Entity찾기
+            //member
             MemberEntity memberEntity = memberRepository.findByNickname(postsDto.getNickname());
             postsDto.setMemberEntity(memberEntity);
+
             PostsEntity postsEntity = PostsEntity.toPostsEntity(postsDto, memberEntity);
-            /*
-            List<MultipartFile> files = postsDto.getFiles();
-            String thumbPath="";
-            if(files !=null){
-                try {
-
-                    String fileName = UUID.randomUUID()+"thumb"+files.get(0).getOriginalFilename();
-                    String filePath =System.getProperty("user.dir")+uploadPath +"/"+ fileName;
-                    File dest = new File(filePath);
-                    files.get(0).transferTo(dest);
-                    thumbPath=filePath;
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-
-                }
-            }
-
-
-             */
             postsRepository.save(postsEntity);
+
             //files 전처리
-            //List<String> fileUrls = new ArrayList<>();
             for (MultipartFile file : postsDto.getFiles()) {
                 String fileUrl = fileService.fileSave(file);
                 fileService.save(new FileEntity(null,postsEntity,fileUrl));
@@ -99,10 +80,12 @@ public class PostsServiceImpl implements  PostsService{
         });
     }
 
+    /*
+    * n+1 문제 발생함
+    * */
     @Override
-    public void deleteContentById(Long id) {
-            postsRepository.deleteById(id);
-
+    public void deletePostById(Long id) {
+        postsRepository.deleteById(id);
     }
 
     @Override
@@ -121,6 +104,12 @@ public class PostsServiceImpl implements  PostsService{
     public int updateViews(Long id) {
 
         return postsRepository.updateViews(id);
+    }
+
+    @Override
+    public void updatePost(Long id,PostsDto postsDto) {
+        postsDto.setUpdatedDate(postsDto.getUpdatedDate().now());
+        postsRepository.updatePost(id,postsDto.getTitle(),postsDto.getContent(),postsDto.getUpdatedDate());
     }
 
 }

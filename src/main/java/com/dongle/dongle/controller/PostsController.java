@@ -41,11 +41,22 @@ public class PostsController {
         return "postView";
     }
 
-    @PostMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String contentDelete(@PathVariable Long id){
-         postsService.deleteContentById(id);
+         postsService.deletePostById(id);
         return"redirect:/";
     }
+    @GetMapping("/modify/{id}")
+    public String postModify(@PathVariable Long id , Model model){
+        PostsDto postsDto = postsService.getPostById(id);
+        model.addAttribute("postModify",postsDto);
+        return "postModify";
+    }
+    @PostMapping("/modifyPro/{id}")
+    public String postModifyProccess(@PathVariable Long id,PostsDto postsDto){
 
+        postsService.updatePost(id,postsDto);
+        return "redirect:/posts/"+id;
+    }
 
 }

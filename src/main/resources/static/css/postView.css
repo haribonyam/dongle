@@ -10,13 +10,30 @@
 .view-content li{
     padding : 8px;
 
-}
-.view-bar{
-    height:40px;
-    display: flex;
-    align-items: center;
-    border-bottom:1px solid #ccc;
-}
+}.view-bar{
+     height:40px;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     border-bottom:1px solid #ccc;
+ }
+ .view-bar div{
+     padding : 0 12px;
+ }
+ .view-post span{
+     margin : 0 5px;
+     padding: 5px;
+     border : 1px solid black;
+     border-radius: 20px;
+     font-size:13px;
+     cursor: pointer;
+ }
+ .view-post span:nth-child(2){
+     color :red;
+ }
+ .view-post span:hover{
+     opacity: 0.3;
+ }
 .view-user{
     height: 70px;
     display:flex;
