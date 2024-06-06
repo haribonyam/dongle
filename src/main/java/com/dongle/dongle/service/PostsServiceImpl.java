@@ -36,6 +36,7 @@ public class PostsServiceImpl implements  PostsService{
     @Override
     @Transactional
     public void savePost(PostsDto postsDto) {
+
         try {
             //member Entity찾기
             MemberEntity memberEntity = memberRepository.findByNickname(postsDto.getNickname());
@@ -70,9 +71,8 @@ public class PostsServiceImpl implements  PostsService{
                // fileUrls.add(fileUrl);
             }
 
-
         }catch(Exception e){
-            System.out.println(e);
+            System.out.println("error : "+e);
         }
 
     }
@@ -106,13 +106,21 @@ public class PostsServiceImpl implements  PostsService{
     }
 
     @Override
+    @Transactional
     public PostsDto getPostById(Long id) {
+       updateViews(id);
        Optional<PostsEntity> getPost = postsRepository.findById(id);
        if(getPost.isPresent()){
            PostsDto postsDto = PostsDto.toPostsDto(getPost.get());
            return postsDto;
        }
     return null;
+    }
+
+    @Override
+    public int updateViews(Long id) {
+
+        return postsRepository.updateViews(id);
     }
 
 }

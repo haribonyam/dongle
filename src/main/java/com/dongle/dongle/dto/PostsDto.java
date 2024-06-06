@@ -1,5 +1,6 @@
 package com.dongle.dongle.dto;
 
+import com.dongle.dongle.entitiy.FileEntity;
 import com.dongle.dongle.entitiy.MemberEntity;
 import com.dongle.dongle.entitiy.PostsEntity;
 import jakarta.persistence.*;
@@ -9,8 +10,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @RequiredArgsConstructor
@@ -34,9 +37,9 @@ public class PostsDto {
 
     private String category;
 
-    private LocalDateTime createdDate;
+    private LocalDate createdDate;
 
-    private LocalDateTime updatedDate;
+    private LocalDate updatedDate;
 
     private MemberEntity memberEntity;
 
@@ -64,10 +67,17 @@ public class PostsDto {
          postsDto.setNickname(postsEntity.getAuthor().getNickname());
          postsDto.setTitle(postsEntity.getTitle());
          postsDto.setId(postsEntity.getId());
-         postsDto.setViews(postsEntity.getViews()+1);
+         postsDto.setViews(postsEntity.getViews());
          postsDto.setCommentsCount(postsEntity.getCommentsCount());
          postsDto.setContent(postsEntity.getContent());
          postsDto.setCategory(postsEntity.getCategory());
+         postsDto.setUpdatedDate(postsEntity.getUpdatedDate());
+         postsDto.setCreatedDate(postsEntity.getCreatedDate());
+         postsDto.setFilePaths(postsEntity.getFiles()
+                 .stream()
+                 .map(FileEntity::getPath)
+                 .collect(Collectors.toList())
+         );
 
         return postsDto;
 

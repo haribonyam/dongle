@@ -21,4 +21,6 @@ public interface PostsService {
 
 
     PostsDto getPostById(Long id);
+
+    int updateViews(Long id);
 }

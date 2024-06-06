@@ -73,7 +73,6 @@ public class PostsEntity {
         postsEntity.setTitle(postsDto.getTitle());
         postsEntity.setTown(postsDto.getTown());
         postsEntity.setViews(postsDto.getCommentsCount());
-
         return postsEntity;
     }
 

@@ -9,6 +9,7 @@
 }
 .view-content li{
     padding : 8px;
+
 }
 .view-bar{
     height:40px;
@@ -17,12 +18,46 @@
     border-bottom:1px solid #ccc;
 }
 .view-user{
-
     height: 70px;
+    display:flex;
+    align-items: center;
 }
+.view-user-profile{
+    padding:0;
+    box-sizing: border-box;
+    width:70px;
+    height:inherit;
+    border:1px solid #ccc;
+    border-radius: 50px;
+
+}
+.view-user-profile img{
+    width:inherit;
+    height: inherit;
+    object-fit: contain;
+}
+.view-user-info ul{
+    list-style: none;
+    padding:0 15px;
+}
+.view-user-info ul li:nth-child(2){
+    font-size:12px;
+    color:#ccc;
+}
+
 .view-title{
     font-size:23px;
     font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.view-title div:nth-child(2){
+    font-size:12px;
+    font-weight: 400;
+}
+.view-title div:nth-child(2) span{
+    padding: 0 3px;
 }
 
 .view-text{
@@ -75,4 +110,75 @@
     max-width: 30px;
     max-height: 30px;
 
+}
+
+
+/*
+   이미지 & 팝업
+
+*/
+/* 모달 스타일 */
+.img-view-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+}
+
+
+.img-view-close {
+    color: #fff;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.img-view-close:hover,
+.img-view-close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.img-view-download{
+    width:30px;
+    height:30px;
+    position: absolute;
+    top: 6px;
+    right: 53px;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    filter: invert(32%) sepia(87%) saturate(2251%) hue-rotate(196deg) brightness(99%) contrast(111%);
+}
+.img-view-download img{
+    width:30px;
+    height:30px;
+    object-fit: contain;
+
+
+}
+
+.img-view-download img:hover {
+    opacity: 0.3;
+}
+
+
+.img-view-box{
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    transform :translate(-50%, -50%);
+    width: 90%;
+    height: 90%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
 }
