@@ -22,8 +22,8 @@ public class PostsEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "author_nickname", referencedColumnName = "nickname", nullable = false)
-    private MemberEntity author;
+    @JoinColumn(name = "member_nickname", referencedColumnName = "nickname", nullable = false)
+    private MemberEntity member;
 
     @Column(name="title", nullable = false, length = 255)
     private String title;
@@ -49,7 +49,7 @@ public class PostsEntity {
     @Column(name = "updated_date", nullable = false)
     private LocalDate updatedDate;
 
-    @OneToMany(mappedBy = "authPost", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "Posts", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FileEntity> files;
 
     @PrePersist
@@ -58,17 +58,13 @@ public class PostsEntity {
         updatedDate = LocalDate.now();
     }
 
-    @PreUpdate
-    protected void onUpdate() {
-        updatedDate = LocalDate.now();
-    }
-
     public static PostsEntity toPostsEntity(PostsDto postsDto, MemberEntity memberEntity) {
+
         PostsEntity postsEntity = new PostsEntity();
 
         postsEntity.setId(postsDto.getId());
         postsEntity.setCategory(postsDto.getCategory());
-        postsEntity.setAuthor(memberEntity);
+        postsEntity.setMember(memberEntity);
         postsEntity.setContent(postsDto.getContent());
         postsEntity.setTitle(postsDto.getTitle());
         postsEntity.setTown(postsDto.getTown());

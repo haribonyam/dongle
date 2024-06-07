@@ -64,7 +64,7 @@ public class PostsDto {
 
     public static PostsDto toPostsDto(PostsEntity postsEntity) {
         PostsDto postsDto = new PostsDto();
-         postsDto.setNickname(postsEntity.getAuthor().getNickname());
+         postsDto.setNickname(postsEntity.getMember().getNickname());
          postsDto.setTitle(postsEntity.getTitle());
          postsDto.setId(postsEntity.getId());
          postsDto.setViews(postsEntity.getViews());

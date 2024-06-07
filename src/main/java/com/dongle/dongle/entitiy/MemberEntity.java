@@ -4,6 +4,8 @@ import com.dongle.dongle.dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 @Table(name="member")
@@ -21,6 +23,8 @@ public class MemberEntity {
     private String role;
     @Column(name="town")
     private String town;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PostsEntity> posts;
 
 
 
