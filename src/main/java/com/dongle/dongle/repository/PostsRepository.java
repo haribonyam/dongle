@@ -11,13 +11,15 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 @EnableJpaRepositories
 public interface PostsRepository extends JpaRepository<PostsEntity, Long> {
 
 
-    @Query("SELECT p FROM PostsEntity p LEFT JOIN FETCH p.files LEFT JOIN FETCH p.member ORDER BY p.createdDate DESC")
+    @Query("SELECT p FROM PostsEntity p LEFT JOIN FETCH p.files LEFT JOIN FETCH p.member ORDER BY p.id DESC")
     Page<PostsEntity> findAllPosts(Pageable pageable);
 
     @Modifying
@@ -28,4 +30,5 @@ public interface PostsRepository extends JpaRepository<PostsEntity, Long> {
     @Query("update PostsEntity p set p.title = :title, p.content = :content, p.updatedDate = :updatedDate where p.id = :id")
     void updatePost(@Param("id") Long id, @Param("title") String title, @Param("content") String content, @Param("updatedDate") LocalDate updatedDate);
 
+    Optional<List<PostsEntity>> findByMemberNicknameOrderByIdDesc(String nickname);
 }

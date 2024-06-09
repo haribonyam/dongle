@@ -9,6 +9,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Member;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
@@ -46,6 +49,24 @@ public class MemberServiceImpl implements MemberService {
     public String getUserNickName() {
 
         return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+    @Override
+    public MemberDto findByNickname(String nickname) {
+
+        try {
+            MemberEntity memberEntity = memberRepository.findByNickname(nickname);
+          MemberDto memberDto =
+                    MemberDto.builder().id(memberEntity.getId())
+                            .nickname(memberEntity.getNickname())
+                            .town(memberEntity.getTown())
+                            .email(memberEntity.getEmail())
+                            .build();
+            return  memberDto;
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return  null;
     }
 /*
     @Override

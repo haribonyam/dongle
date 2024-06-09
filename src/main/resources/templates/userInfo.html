@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>동글</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/userinfo.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <script src="https://kit.fontawesome.com/22f660ea99.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div th:replace="~{header :: header}"></div>
+<div class="user-info-container">
+    <div class="user-info-box">
+        <div class="user-info-bar">
+            <div><i class="fa-solid fa-circle-info"></i><span>내정보</span></div>
+            <div>수정</div>
+        </div>
+        <ul class="user-info-summary">
+            <li class="user-profile">
+                <span><img src="/img/user.png"></span>
+                <span th:text="${member.nickname}">test</span>
+            </li>
+            <li>
+                <span>이메일</span>
+                <span th:text="${member.email}"></span>
+            </li>
+            <li>
+                <span>가입일자</span>
+                <span>2024-01-01</span>
+            </li>
+        </ul>
+        <div>
+            <div class="user-info-select">
+                <div>작성글 보기</div>
+            </div>
+            <ul class="user-info-post" th:each="post : posts">
+                <li th:if="${posts.size() == 0}">작성하신 게시글이 없습니다</li>
+                <li th:each="post : ${posts}">
+                    <div>글번호: <span th:text="${post.id}">글번호</span></div>
+                    <div>글제목: <span th:text="${post.title}">글제목</span></div>
+                    <div>조회수: <span th:text="${post.views}">조회수</span></div>
+                    <div>작성날짜: <span th:text="${post.createdDate}">작성날짜</span></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div th:replace="~{footer :: footer}"></div>
+</body>
+</html>

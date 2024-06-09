@@ -112,4 +112,17 @@ public class PostsServiceImpl implements  PostsService{
         postsRepository.updatePost(id,postsDto.getTitle(),postsDto.getContent(),postsDto.getUpdatedDate());
     }
 
+    @Override
+    public List<PostsDto> findByMemberNickname(String nickname) {
+        Optional<List<PostsEntity>> postsEntities = postsRepository.findByMemberNicknameOrderByIdDesc(nickname);
+        if(postsEntities.isPresent()){
+          List<PostsDto>  postsDtos = new ArrayList<>();
+          for(PostsEntity postsEntity : postsEntities.get()){
+                postsDtos.add(PostsDto.toPostsDto(postsEntity));
+          }
+            return postsDtos;
+        }
+        return null;
+    }
+
 }
