@@ -10,7 +10,7 @@
   <title>게시글 수정</title>
 </head>
 <body>
-<div th:replace="header :: header"></div>
+<div th:replace="~{header :: header}"></div>
 <form th:action="@{/posts/modifyPro/__${postModify.id}__}" method="post" enctype="multipart/form-data">
   <div class="write-box">
     <ul class="write-content">
@@ -34,7 +34,7 @@
   <div class="write-button-container" onclick="submitForm()"><div class="write-button">글등록</div></div>
   <input type="hidden" name="category" id="setCategory">
 </form>
-<div th:replace="footer :: footer"></div>
+<div th:replace="~{footer :: footer}"></div>
 </body>
 <script>
   function setCategory(category) {

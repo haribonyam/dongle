@@ -6,16 +6,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 
 @Repository
+@EnableJpaRepositories
 public interface PostsRepository extends JpaRepository<PostsEntity, Long> {
 
 
-    @Query("SELECT p FROM PostsEntity p LEFT JOIN FETCH p.files LEFT JOIN FETCH p.author ORDER BY p.createdDate DESC")
+    @Query("SELECT p FROM PostsEntity p LEFT JOIN FETCH p.files LEFT JOIN FETCH p.member ORDER BY p.createdDate DESC")
     Page<PostsEntity> findAllPosts(Pageable pageable);
 
     @Modifying

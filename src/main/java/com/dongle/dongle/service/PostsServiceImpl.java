@@ -70,7 +70,7 @@ public class PostsServiceImpl implements  PostsService{
 
             return PostsDto.postSummary(
                     postEntity.getId(),
-                    postEntity.getAuthor().getNickname(),
+                    postEntity.getMember().getNickname(),
                     postEntity.getTitle(),
                     postEntity.getViews(),
                     filePaths,

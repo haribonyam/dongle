@@ -7,13 +7,18 @@
 <body>
 <article class="board-container" th:fragment="board">
     <div class="board-box">
-        <div class="board-location" id="boardLocation" onClick="locationSelect()">서대문구<div id="rotate-item" class="arrow-icon"><i class="fa-solid fa-angle-up"></i></div></div>
-        <div class="location-list" id="locationList">지역선택 넣어야함</div>
+        <div class="board-location" id="boardLocation" onClick="locationSelect()"><div id="locationText">지역선택</div><div id="rotate-item" class="arrow-icon"><i class="fa-solid fa-angle-up"></i></div></div>
+        <div class="location-list" id="locationList">
+            <ul id="location-list">
+                <li class="location-sido"></li>
+                <li class="location-arrow">></li>
+                <li class="location-sgg"></li>
+            </ul>
+        </div>
         <div class="board-bar">
-            <!--지역선택-->
             <div>
                 <div class="board-icon"><i class="fa-solid fa-house"></i></div>
-                <div class="board-text">홈</div>
+                <div class="board-text" onclick='location.href="/"'>홈</div>
             </div>
             <div>
                 <div class="board-icon"><i class="fa-solid fa-location-crosshairs"></i></div>
@@ -32,6 +37,7 @@
         <div id="pagination"></div>
     </div>
 </article>
+
 
 </body>
 
