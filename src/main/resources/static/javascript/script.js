@@ -13,8 +13,16 @@ function locationSelect(){
     }
     }
 */
-    //postWrite
+    // userinfo
+    function UserInfo(nickname){
+       if(nickname == "anonymousUser"){
+            alert("로그인이 필요한 서비스 입니다.")
+       }else{
+            location.href = "/userinfo/"+nickname;
+       }
+    }
 
+    //postWrite
         function triggerFileInput() {
         const fileInput = document.createElement('input');
         fileInput.type = 'file';

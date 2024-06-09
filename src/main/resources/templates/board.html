@@ -26,7 +26,7 @@
             </div>
             <div>
                 <div class="board-icon"><i class="fa-solid fa-bars"></i></div>
-                <div class="board-text">내정보</div>
+                <div class="board-text" th:nickname =${nickname} th:onclick="UserInfo(this.getAttribute('nickname'))">내정보</div>
             </div>
         </div>
         <!--글-->
@@ -42,6 +42,10 @@
 </body>
 
 <script>
+    function UserInfo(nickname){
+        console.log(nickname);
+    }
+
     // 페이지 로딩 시 초기 게시물 목록과 페이징을 가져옵니다.
     console.log("ddd");
     window.onload = function() {

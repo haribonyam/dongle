@@ -4,6 +4,8 @@ import com.dongle.dongle.entitiy.MemberEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface MemberRepository extends JpaRepository<MemberEntity,Long> {
 
@@ -13,5 +15,5 @@ public interface MemberRepository extends JpaRepository<MemberEntity,Long> {
 
     boolean existsByEmail(String email);
 
-    MemberEntity findByNickname(String nickname);
+   MemberEntity findByNickname(String nickname);
 }

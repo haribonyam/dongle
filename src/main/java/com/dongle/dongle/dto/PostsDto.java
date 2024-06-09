@@ -4,6 +4,7 @@ import com.dongle.dongle.entitiy.FileEntity;
 import com.dongle.dongle.entitiy.MemberEntity;
 import com.dongle.dongle.entitiy.PostsEntity;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;

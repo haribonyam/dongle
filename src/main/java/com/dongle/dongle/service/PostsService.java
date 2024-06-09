@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface PostsService {
     /**
      savePost  : 게시물 저장
@@ -25,4 +27,6 @@ public interface PostsService {
     int updateViews(Long id);
 
     void updatePost(Long id,PostsDto postsDto);
+
+    List<PostsDto> findByMemberNickname(String nickname);
 }

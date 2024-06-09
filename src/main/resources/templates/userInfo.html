@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>동글</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/userinfo.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <script src="https://kit.fontawesome.com/22f660ea99.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div th:replace="~{header :: header}"></div>
+<div class="user-info-container">
+    <div class="user-info-box">
+        <div class="user-info-bar">
+            <div><i class="fa-solid fa-circle-info"></i><span>내정보</span></div>
+            <div>수정</div>
+        </div>
+        <ul class="user-info-summary">
+            <li class="user-profile">
+                <span><img src="/icon/user.png"></span>
+                <span th:text="${member.nickname}">test</span>
+            </li>
+            <li>
+                <span>이메일</span>
+                <span th:text="${member.email}"></span>
+            </li>
+            <li>
+                <span>가입일자</span>
+                <span>2024-01-01</span>
+            </li>
+        </ul>
+        <div>
+            <div class="user-info-select">
+                <div>작성글 보기</div>
+            </div>
+            <ul class="user-info-post" th:each="post : posts">
+                <li th:if="${posts.size() == 0}">작성하신 게시글이 없습니다</li>
+                <li th:if="${posts.size() != 0}" th:class="user-info-post-list" th:classappend="first">
+                    <div>No</div>
+                    <div>글제목</div>
+                    <div>조회수</div>
+                    <div>작성날짜</div>
+                </li>
+                <li th:each="post : ${posts}" th:class="user-info-post-list">
+                    <div th:text="${post.id}"></div>
+                    <div th:text="${post.title}" th:onclick="|location.href='/posts/${post.id}'|"></div>
+                    <div th:text="${post.views}"></div>
+                    <div th:text="${post.createdDate}"></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div th:replace="~{footer :: footer}"></div>
+</body>
+</html>
