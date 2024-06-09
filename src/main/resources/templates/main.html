@@ -8,11 +8,13 @@
     <link rel="stylesheet" href="/css/board.css">
     <script src="https://kit.fontawesome.com/22f660ea99.js" crossorigin="anonymous"></script>
     <script src="/javascript/script.js"></script>
+    <script src="/javascript/getPost.js"></script>
+    <script src="/javascript/board.js"></script>
 
 </head>
 <body>
-<div th:replace="header :: header"></div>
-<div th:replace="board :: board"></div>
-<div th:replace="footer :: footer"></div>
+<div th:replace="~{header :: header}"></div>
+<div th:replace="~{board :: board}"></div>
+<div th:replace="~{footer :: footer}"></div>
 </body>
 </html>

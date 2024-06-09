@@ -75,6 +75,9 @@ Thumbs.db
 *.swo
 *.swn
 
+# 이미지
+/static/img
+
 # 환경설정 파일
 /.env
 /.vscode/

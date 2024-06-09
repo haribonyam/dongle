@@ -10,7 +10,7 @@
     <title>문서</title>
 </head>
 <body>
-<div th:replace="header :: header"></div>
+<div th:replace="~{header :: header}"></div>
 <div class="view-box">
     <ul class="view-content">
         <li class="view-bar">
@@ -70,7 +70,7 @@
     <div id="caption"></div>
     <div class="img-view-download"><img src="/icon/downloadsvg.svg"></div>
 </div>
-<div th:replace="footer :: footer"></div>
+<div th:replace="~{footer :: footer}"></div>
 </body>
 <script th:inline="javascript">
     // 이미지 클릭 시 모달 창 열기
