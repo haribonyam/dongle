@@ -19,7 +19,7 @@
         </div>
         <ul class="user-info-summary">
             <li class="user-profile">
-                <span><img src="/img/user.png"></span>
+                <span><img src="/icon/user.png"></span>
                 <span th:text="${member.nickname}">test</span>
             </li>
             <li>
@@ -37,11 +37,17 @@
             </div>
             <ul class="user-info-post" th:each="post : posts">
                 <li th:if="${posts.size() == 0}">작성하신 게시글이 없습니다</li>
-                <li th:each="post : ${posts}">
-                    <div>글번호: <span th:text="${post.id}">글번호</span></div>
-                    <div>글제목: <span th:text="${post.title}">글제목</span></div>
-                    <div>조회수: <span th:text="${post.views}">조회수</span></div>
-                    <div>작성날짜: <span th:text="${post.createdDate}">작성날짜</span></div>
+                <li th:if="${posts.size() != 0}" th:class="user-info-post-list" th:classappend="first">
+                    <div>No</div>
+                    <div>글제목</div>
+                    <div>조회수</div>
+                    <div>작성날짜</div>
+                </li>
+                <li th:each="post : ${posts}" th:class="user-info-post-list">
+                    <div th:text="${post.id}"></div>
+                    <div th:text="${post.title}" th:onclick="|location.href='/posts/${post.id}'|"></div>
+                    <div th:text="${post.views}"></div>
+                    <div th:text="${post.createdDate}"></div>
                 </li>
             </ul>
         </div>

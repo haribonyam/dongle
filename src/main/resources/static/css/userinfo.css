@@ -81,3 +81,38 @@
 .user-info-select div:hover{
     opacity:0.3;
 }
+
+.user-info-post li{
+    display:flex;
+
+}
+.user-info-post-list{
+    border-bottom: 1px solid #ccc;
+    padding : 10px 0;
+    width:100%;
+}
+.user-info-post li div{
+    text-align: center;
+}
+.user-info-post li div:nth-child(1){
+    width:10%;
+}
+.user-info-post li div:nth-child(2){
+    width:60%;
+    cursor:pointer;
+}
+.user-info-post li:nth-child(1) div:nth-child(2){
+    width:60%;
+    cursor:default;
+}
+.user-info-post li div:nth-child(3){
+    width: 10%;
+}
+.user-info-post li div:nth-child(4){
+    width:20%;
+}
+.first{
+
+    border-radius: 10px;
+    background-color :#ccc;
+}
