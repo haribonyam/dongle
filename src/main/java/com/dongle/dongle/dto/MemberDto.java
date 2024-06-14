@@ -5,6 +5,7 @@ import com.dongle.dongle.entitiy.PostsEntity;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.lang.reflect.Member;
 
@@ -23,7 +24,11 @@ public class MemberDto {
 
     private String role;
 
+    private MultipartFile profile;
+
     private String town;
+
+    private String path;
 
 
 }

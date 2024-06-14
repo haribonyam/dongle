@@ -22,7 +22,7 @@ public class PostsDto {
 
     private Long id;
 
-    private String nickname;
+    private Long memberId;
 
     private String title;
 
@@ -42,11 +42,11 @@ public class PostsDto {
 
     private LocalDate updatedDate;
 
-    private MemberEntity memberEntity;
+    private String nickname;
 
     private List<String> filePaths;
 
-    public static PostsDto postSummary(Long postId,String nickname,String title, int views,List<String> filePaths,
+    public static PostsDto postSummary(Long postId,Long memberId,String title, int views,List<String> filePaths,
                                        String town,int commentsCount)
     {
 
@@ -58,13 +58,14 @@ public class PostsDto {
         postsDto.setCommentsCount(commentsCount);
         postsDto.setViews(views);
         postsDto.setFilePaths(filePaths);
-        postsDto.setNickname(nickname);
+        postsDto.setMemberId(memberId);
 
         return  postsDto;
     }
 
     public static PostsDto toPostsDto(PostsEntity postsEntity) {
-        PostsDto postsDto = new PostsDto();
+         PostsDto postsDto = new PostsDto();
+
          postsDto.setNickname(postsEntity.getMember().getNickname());
          postsDto.setTitle(postsEntity.getTitle());
          postsDto.setId(postsEntity.getId());

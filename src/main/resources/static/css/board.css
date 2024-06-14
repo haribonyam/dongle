@@ -113,10 +113,9 @@
 .board-contents{
     display:flex;
     margin-top:10px;
-
-    background-color:  #add8e6;
     border-radius: 5px;
     align-items: center;
+    background-color:white;
 }
 
 
@@ -160,6 +159,7 @@
 
 .write-page{
       margin-top:10px;
+      text-align:center;
       right:0;
       margin-right:15px;
       width:90px;

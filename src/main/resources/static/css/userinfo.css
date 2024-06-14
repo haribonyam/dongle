@@ -19,24 +19,14 @@
 }
 .user-info-bar div:nth-child(1){
     font-size:30px;
-    color:cornflowerblue
-
 }
 .user-info-bar div:nth-child(1) span{
     padding-left:9px;
     font-size:26px;
     color:black;
+    cursor:pointer;
 }
 
-.user-info-bar div:nth-child(2){
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    padding :9px;
-    cursor: pointer;
-}
-.user-info-bar div:nth-child(2):hover{
-    opacity: 0.3;
-}
 .user-info-summary li{
     display:flex;
     padding : 23px 8px;
@@ -49,17 +39,47 @@
     width:30%;
 }
 
+
 .user-info-summary li:nth-child(1){
     padding :5px;
+    width:100%;
+
+}
+.user-info-summary li:nth-child(1) span{
+    width:100%;
     align-items: center;
 }
 
 .user-info-summary li:nth-child(1) span:nth-child(1) img{
+        margin-left:10px;
         border:1px solid;
         border-radius: 100px;
-        width:120px;
+        width: 120px;
         height:120px;
         background-color:#ccc;
+        right:0;
+}
+.user-info-summary li:nth-child(1) span div:nth-child(2) input{
+    margin-left:60px;
+}
+.user-info-summary div{
+    text-align: center;
+    display:flex;
+    justify-content: center;
+    padding : 19px 0;
+    align-items: center;
+}
+.user-modify{
+    width:120px;
+    height:40px;
+    border:1px solid black;
+    line-height: 40px;
+    border:1px solid #ccc;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.user-modify:hover{
+    opacity: 0.3;
 }
 
 
@@ -81,7 +101,9 @@
 .user-info-select div:hover{
     opacity:0.3;
 }
-
+.user-info-post{
+    display:none;
+}
 .user-info-post li{
     display:flex;
 

@@ -1,6 +1,7 @@
 package com.dongle.dongle.controller;
 
 import com.dongle.dongle.dto.MemberDto;
+import com.dongle.dongle.dto.ModifyMemberDto;
 import com.dongle.dongle.service.MemberService;
 import com.dongle.dongle.service.PostsService;
 import lombok.RequiredArgsConstructor;
@@ -60,9 +61,27 @@ public class HomeController {
     @GetMapping("/userinfo/{nickname}")
     public String userInfo(@PathVariable String nickname,
                            Model model){
-        System.out.println(nickname);
-       model.addAttribute("member",memberService.findByNickname(nickname));
+        String loggedInUserNickname = memberService.getUserNickName();
+        MemberDto memberDto = memberService.findByNickname(nickname);
+        if (!loggedInUserNickname.equals(memberDto.getNickname())) {
+            System.out.println("error!!!!!!!!!!!!!!");
+            return "redirect:/";
+        }
+
+        model.addAttribute("member",memberDto);
        model.addAttribute("posts",postsService.findByMemberNickname(nickname));
+
        return "userinfo";
+    }
+    @GetMapping("/userInfo/modify/{nickname}")
+    public String userModify(@PathVariable String nickname, Model model){
+
+        model.addAttribute("member",memberService.findByNickname(nickname));
+        return "userModify";
+    }
+    @PostMapping("/member/modifyPro")
+    public String modifyPro(ModifyMemberDto modifyMemberDto){
+        memberService.updateByNickname(modifyMemberDto);
+        return "redirect:/";
     }
 }

@@ -1,6 +1,7 @@
 package com.dongle.dongle.controller;
 
 
+import com.dongle.dongle.dto.MemberDto;
 import com.dongle.dongle.dto.PostsDto;
 import com.dongle.dongle.service.MemberService;
 import com.dongle.dongle.service.PostsService;
@@ -22,8 +23,10 @@ public class PostsController {
 
     @GetMapping("/write")
     public String contentWrite(Model model){
-        String nickname = memberService.getUserNickName();
-        model.addAttribute("nickname",nickname);
+        String loginNickname = memberService.getUserNickName();
+        MemberDto memberDto = memberService.findByNickname(loginNickname);
+        model.addAttribute("member",memberDto);
+        model.addAttribute("nickname",loginNickname);
         return "postWrite";
     }
     @PostMapping("/save")

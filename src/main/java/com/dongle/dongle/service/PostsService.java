@@ -17,7 +17,7 @@ public interface PostsService {
 
     void savePost(PostsDto postsDto);
 
-    Page<PostsDto> getAllPosts(PageRequest pageRequest);
+    Page<PostsDto> getAllPosts(Pageable pageable);
 
     void deletePostById(Long id);
 

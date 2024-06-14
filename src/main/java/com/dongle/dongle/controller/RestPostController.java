@@ -6,6 +6,8 @@ import com.dongle.dongle.service.PostsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +21,11 @@ public class RestPostController {
     private final PostsService postsService;
 
     @GetMapping("/list")
-    public ResponseEntity<Page<PostsDto>> getAllPosts(@RequestParam(defaultValue = "0") int page,
-                                                         @RequestParam(defaultValue = "5") int size) {
-        Page<PostsDto> posts = postsService.getAllPosts(PageRequest.of(page, size));
+    public ResponseEntity<Page<PostsDto>> getAllPosts(Pageable pageable) {
+        Page<PostsDto> posts = postsService.getAllPosts(pageable);
         return ResponseEntity.ok(posts);
     }
+
+
+
 }

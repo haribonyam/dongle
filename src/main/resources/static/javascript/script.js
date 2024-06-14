@@ -22,44 +22,10 @@ function locationSelect(){
        }
     }
 
-    //postWrite
-        function triggerFileInput() {
-        const fileInput = document.createElement('input');
-        fileInput.type = 'file';
-        fileInput.name = 'files';
-        fileInput.accept = 'image/*';
-        fileInput.style.display = 'none';
+    function UserModify(){
 
-        fileInput.onchange = function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const previewContainer = document.createElement('div');
-                    previewContainer.className = 'photo-preview';
-
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    previewContainer.appendChild(img);
-
-                    const removeButton = document.createElement('button');
-                    removeButton.className = 'remove-photo';
-                    removeButton.innerHTML = 'X';
-                    removeButton.onclick = function() {
-                        document.querySelector('.photo-container').removeChild(previewContainer);
-                        fileInput.remove();
-                    };
-                    previewContainer.appendChild(removeButton);
-
-                    document.querySelector('.photo-container').appendChild(previewContainer);
-                };
-                reader.readAsDataURL(file);
-            }
-        };
-
-        document.getElementById("writeForm").appendChild(fileInput);
-        fileInput.click();
     }
+
 
 
 

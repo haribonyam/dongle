@@ -5,6 +5,7 @@ import com.dongle.dongle.dto.PostsDto;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,7 +23,7 @@ public class PostsEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "member_nickname", referencedColumnName = "nickname", nullable = false)
+    @JoinColumn(name = "member_id", referencedColumnName = "id", nullable = false)
     private MemberEntity member;
 
     @Column(name="title", nullable = false, length = 255)
@@ -49,6 +50,7 @@ public class PostsEntity {
     @Column(name = "updated_date", nullable = false)
     private LocalDate updatedDate;
 
+    @BatchSize(size = 100)
     @OneToMany(mappedBy = "Posts", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FileEntity> files;
 
@@ -62,7 +64,9 @@ public class PostsEntity {
 
         PostsEntity postsEntity = new PostsEntity();
 
-        postsEntity.setId(postsDto.getId());
+        if (postsDto.getId() != null) {
+            postsEntity.setId(postsDto.getId());
+        }
         postsEntity.setCategory(postsDto.getCategory());
         postsEntity.setMember(memberEntity);
         postsEntity.setContent(postsDto.getContent());

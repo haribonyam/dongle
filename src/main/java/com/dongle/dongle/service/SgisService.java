@@ -5,4 +5,5 @@ public interface SgisService {
     String getSidoInfo();
 
     String getSggInfo(String sido);
+    void refreshApiKeyIfNeeded();
 }
