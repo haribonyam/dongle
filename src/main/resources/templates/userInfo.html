@@ -7,19 +7,18 @@
     <link rel="stylesheet" href="/css/userinfo.css">
     <link rel="stylesheet" href="/css/footer.css">
     <script src="https://kit.fontawesome.com/22f660ea99.js" crossorigin="anonymous"></script>
-
+    <script src="/javascript/info.js"></script>
 </head>
 <body>
 <div th:replace="~{header :: header}"></div>
 <div class="user-info-container">
     <div class="user-info-box">
         <div class="user-info-bar">
-            <div><i class="fa-solid fa-circle-info"></i><span>내정보</span></div>
-            <div>수정</div>
+            <div><span id="myinfo">내정보</span><span id="mypost">게시물</span></div>
         </div>
-        <ul class="user-info-summary">
+        <ul class="user-info-summary" id="user-info-summary">
             <li class="user-profile">
-                <span><img src="/icon/user.png"></span>
+                <span><img th:src="${member.path}"></span>
                 <span th:text="${member.nickname}">test</span>
             </li>
             <li>
@@ -30,12 +29,12 @@
                 <span>가입일자</span>
                 <span>2024-01-01</span>
             </li>
+            <div>
+                <span class="user-modify" th:nickname =${member.nickname} th:onclick="UserModify(this.getAttribute('nickname'))" >내정보 수정</span>
+            </div>
         </ul>
         <div>
-            <div class="user-info-select">
-                <div>작성글 보기</div>
-            </div>
-            <ul class="user-info-post" th:each="post : posts">
+            <ul class="user-info-post" id="user-info-post" th:each="post : posts">
                 <li th:if="${posts.size() == 0}">작성하신 게시글이 없습니다</li>
                 <li th:if="${posts.size() != 0}" th:class="user-info-post-list" th:classappend="first">
                     <div>No</div>
@@ -55,4 +54,9 @@
 </div>
 <div th:replace="~{footer :: footer}"></div>
 </body>
+<script>
+    function UserModify(nickname){
+        location.href="/userInfo/modify/"+nickname;
+    }
+</script>
 </html>

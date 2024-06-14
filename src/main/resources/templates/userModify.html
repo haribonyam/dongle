@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/22f660ea99.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/userinfo.css">
+    <title>내정보</title>
+</head>
+<body>
+<form action="/member/modifyPro" method="post" enctype="multipart/form-data" id="userModifyForm">
+    <input type="hidden" name="id" th:value="${member.id}">
+    <input type="hidden" name="nickname" th:value="${member.nickname}">
+    <div class="user-info-container">
+        <div class="user-info-box">
+            <div class="user-info-bar">
+                <div>※ 회원정보수정</div>
+            </div>
+            <ul class="user-info-summary" id="user-info-summary">
+                <li class="user-profile">
+                    <span class="user-profile-modify">
+                        <div><img th:src="${member.path}"></div>
+                        <div><input type="file" name="file"></div>
+                    </span>
+                </li>
+                <li>
+                    <span>닉네임 수정</span>
+                    <span><input name="mnickname" th:value="${member.nickname}" type="text" placeholder="수정할 닉네임을 입력하세요." id="modifyNickname" onchange="checkNickname(this.value)"></span>
+                </li>
+                <li>
+                    <span>비밀번호 수정</span>
+                    <span><input name="mpassword" type="password" placeholder="수정할 비밀번호를 입력하세요." id="originPass"></span>
+                </li>
+                <li>
+                    <span>비밀번호 확인</span>
+                    <span><input type="password" id="confirmPass" ></span>
+                </li>
+                <div>
+                    <span class="user-modify" onclick="check()">수정 완료</span>
+                </div>
+            </ul>
+        </div>
+    </div>
+</form>
+</body>
+<script>
+    function userModifySubmit(){
+        if(confirm("회원정보를 수정하시겠습니까?")){
+            document.getElementById("userModifyForm").submit();
+        }
+    }
+
+    function check(){
+        const nickname = document.getElementById("modifyNickname");
+        const origin  = document.getElementById("originPass");
+        const cp = document.getElementById("confirmPass");
+        if(nickname.value=="" ||origin.value=="" ||cp.value==""){
+                alert("수정할 내용을 입력해 주세요.");
+        }
+        else if(origin.value!=cp.value){
+            alert("비밀번호가 일치하지 않습니다.")
+            cp.value="";
+            cp.focus();
+        }else{
+            userModifySubmit();
+        }
+    }
+
+    async function checkNickname(nickname) {
+  try {
+    const response = await fetch(`/api/member/nickname/${encodeURIComponent(nickname)}`);
+    const data = await response.json();
+    const mnickname = document.getElementById("modifyNickname");
+    if(response.status == 200){
+    }
+    else if (response.status === 409) {
+      alert("중복된 닉네임 입니다.")
+      mnickname.value="";
+      mnickname.focus();
+    } else {
+      alert("예상치 못한 오류가 발생했습니다.");
+    }
+  } catch (error) {
+    console.error('닉네임 확인 중 오류:', error);
+    alert("닉네임 확인에 실패했습니다. 나중에 다시 시도하세요.");
+  }
+}
+</script>
+</html>

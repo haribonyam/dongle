@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,17 +40,17 @@ public class PostsServiceImpl implements  PostsService{
 
         try {
             //member
-            MemberEntity memberEntity = memberRepository.findByNickname(postsDto.getNickname());
-            postsDto.setMemberEntity(memberEntity);
-
+            MemberEntity memberEntity = memberRepository.findById(postsDto.getMemberId()).get();
             PostsEntity postsEntity = PostsEntity.toPostsEntity(postsDto, memberEntity);
             postsRepository.save(postsEntity);
 
             //files 전처리
             for (MultipartFile file : postsDto.getFiles()) {
                 String fileUrl = fileService.fileSave(file);
-                fileService.save(new FileEntity(null,postsEntity,fileUrl));
-               // fileUrls.add(fileUrl);
+                fileService.save(FileEntity.builder()
+                                .Posts(postsEntity)
+                                .path(fileUrl)
+                        .build());
             }
 
         }catch(Exception e){
@@ -60,8 +61,8 @@ public class PostsServiceImpl implements  PostsService{
 
     @Override
     @Transactional
-    public Page<PostsDto> getAllPosts(PageRequest pageRequest) {
-        Page<PostsEntity> postsEntities = postsRepository.findAllPosts(pageRequest);
+    public Page<PostsDto> getAllPosts(Pageable pageable) {
+        Page<PostsEntity> postsEntities = postsRepository.findAllPosts(pageable);
 
         return postsEntities.map(postEntity -> {
             List<String> filePaths = postEntity.getFiles().stream()
@@ -70,7 +71,7 @@ public class PostsServiceImpl implements  PostsService{
 
             return PostsDto.postSummary(
                     postEntity.getId(),
-                    postEntity.getMember().getNickname(),
+                    postEntity.getMember().getId(),
                     postEntity.getTitle(),
                     postEntity.getViews(),
                     filePaths,

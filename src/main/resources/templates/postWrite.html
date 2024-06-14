@@ -39,7 +39,6 @@
             </li>
 
             <li th:if="${nickname=='anonymousUser'}"><div>익명</div><div><input type="password" placeholder="비밀번호를 입력하세요"></div></li>
-            <input type="hidden" name="nickname" th:value="${nickname}">
             <li><input name="title" class="write-title" type="text" placeholder="제목을 입력해 주세요."></li>
             <li><textarea name="content" class="write-text" placeholder="전하고 싶은 동네 이야기를 작성해 주세요."></textarea></li>
             <li><div class="write-photo" onclick="triggerFileInput()">사진 올리기</div></li>
@@ -49,6 +48,7 @@
     <div class="write-button-container" onclick="submitForm()"><div class="write-button">글등록</div></div>
     <input type="hidden" name="category" id="setCategory">
     <input type="hidden" name="town" id="setTown">
+    <input type="hidden" name="memberId" th:value="${member.id}">
 </form>
 <div th:replace="~{footer :: footer}"></div>
 </body>

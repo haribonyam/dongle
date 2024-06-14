@@ -1,13 +1,16 @@
 package com.dongle.dongle.entitiy;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+
+import java.lang.reflect.Member;
 
 @Entity
 @Data
 @Table(name="file")
-@RequiredArgsConstructor
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class FileEntity {
 
     @Id
@@ -22,9 +25,5 @@ public class FileEntity {
     @Column(name="file_path")
     private String path;
 
-    public FileEntity(Long id, PostsEntity postsEntity, String fileUrl) {
-        this.id = id;
-        this.Posts = postsEntity;
-        this.path = fileUrl;
-    }
+
 }

@@ -3,7 +3,6 @@ package com.dongle.dongle.entitiy;
 import com.dongle.dongle.dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.util.List;
 
 @Entity
@@ -23,10 +22,11 @@ public class MemberEntity {
     private String role;
     @Column(name="town")
     private String town;
+    @Column(name="profile_path")
+    private String profilePath;
+
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostsEntity> posts;
-
-
 
     public static MemberEntity toMemberEntity(MemberDto memberDto){
 
@@ -36,9 +36,11 @@ public class MemberEntity {
         memberEntity.setNickname(memberDto.getNickname());
         memberEntity.setPassword(memberDto.getPassword());
         memberEntity.setRole(memberDto.getRole());
+        memberEntity.setProfilePath(memberDto.getPath());
 
         return memberEntity;
     }
+
 }
 
 

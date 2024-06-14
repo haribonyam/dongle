@@ -1,6 +1,8 @@
 package com.dongle.dongle.service;
 
 import com.dongle.dongle.dto.MemberDto;
+import com.dongle.dongle.dto.ModifyMemberDto;
+import com.dongle.dongle.entitiy.MemberEntity;
 
 public interface MemberService {
     void join(MemberDto memberDto);
@@ -13,5 +15,6 @@ public interface MemberService {
 
     MemberDto findByNickname(String nickname);
 
-    //  String findNicknameByEmail(String email);
+    void updateByNickname(ModifyMemberDto modifyMemberDto);
+
 }
