@@ -1,6 +1,7 @@
 package com.dongle.dongle.controller;
 
 
+import com.dongle.dongle.dto.CommentDto;
 import com.dongle.dongle.dto.MemberDto;
 import com.dongle.dongle.dto.PostsDto;
 import com.dongle.dongle.service.MemberService;
@@ -41,6 +42,7 @@ public class PostsController {
     ){
         PostsDto postsDto = postsService.getPostById(id);
         model.addAttribute("postView",postsDto);
+        model.addAttribute("comments",postsService.findCommentByPostId(id));
         return "postView";
     }
 
@@ -62,4 +64,18 @@ public class PostsController {
         return "redirect:/posts/"+id;
     }
 
+    @PostMapping("/comment/save")
+    public String commentSave(CommentDto commentDto){
+
+        postsService.saveComment(commentDto);
+
+        return "redirect:/posts/"+commentDto.getPostId();
+    }
+    @PostMapping("/comment/child")
+    public String childSave(CommentDto commentDto){
+
+        postsService.saveChild(commentDto);
+
+        return "redirect:/posts/"+commentDto.getPostId();
+    }
 }

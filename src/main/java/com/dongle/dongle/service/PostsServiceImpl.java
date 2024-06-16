@@ -1,10 +1,13 @@
 package com.dongle.dongle.service;
 
 
+import com.dongle.dongle.dto.CommentDto;
 import com.dongle.dongle.dto.PostsDto;
+import com.dongle.dongle.entitiy.CommentEntity;
 import com.dongle.dongle.entitiy.FileEntity;
 import com.dongle.dongle.entitiy.MemberEntity;
 import com.dongle.dongle.entitiy.PostsEntity;
+import com.dongle.dongle.repository.CommentRepository;
 import com.dongle.dongle.repository.MemberRepository;
 import com.dongle.dongle.repository.PostsRepository;
 import jakarta.transaction.Transactional;
@@ -31,9 +34,10 @@ public class PostsServiceImpl implements  PostsService{
     private final PostsRepository postsRepository;
     private final MemberRepository memberRepository;
     private final FileService fileService;
-
+    private final CommentRepository commentRepository;
     @Value("${upload.path}")
     private String uploadPath;
+
     @Override
     @Transactional
     public void savePost(PostsDto postsDto) {
@@ -124,6 +128,46 @@ public class PostsServiceImpl implements  PostsService{
             return postsDtos;
         }
         return null;
+    }
+
+    @Override
+    public void saveComment(CommentDto commentDto) {
+        try {
+            PostsEntity posts = postsRepository.findById(commentDto.getPostId()).get();
+            MemberEntity member = memberRepository.findByNickname(commentDto.getMemberNickname());
+            commentRepository.save(CommentEntity.toCommentEntity(commentDto, member, posts));
+        }catch(Exception e){
+            System.out.println(e);
+
+        }
+    }
+
+    @Override
+    public void saveChild(CommentDto commentDto) {
+        try {
+            MemberEntity childMember = memberRepository.findByNickname(commentDto.getMemberNickname());
+            PostsEntity childPost = postsRepository.findById(commentDto.getPostId()).get();
+            CommentEntity child = CommentEntity.toCommentEntity(commentDto, childMember, childPost);
+            CommentEntity parent = commentRepository.findById(commentDto.getParentId()).get();
+
+            parent.getChildren().add(child);
+            child.setParent(parent);
+            commentRepository.save(child);
+            commentRepository.save(parent);
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+    }
+
+    @Override
+    public List<CommentDto> findCommentByPostId(Long pid) {
+        List<CommentEntity> commentEntity = commentRepository.findAllByPostIdAndParentIsNullOrderByAsc(pid);
+        List<CommentDto> commentList = new ArrayList<>();
+        for(CommentEntity comment : commentEntity){
+            commentList.add(CommentDto.toCommentDto(comment));
+        }
+        return commentList;
     }
 
 }

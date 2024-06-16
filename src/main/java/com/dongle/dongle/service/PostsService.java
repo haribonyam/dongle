@@ -1,5 +1,6 @@
 package com.dongle.dongle.service;
 
+import com.dongle.dongle.dto.CommentDto;
 import com.dongle.dongle.dto.PostsDto;
 import com.dongle.dongle.entitiy.PostsEntity;
 import org.springframework.data.domain.Page;
@@ -29,4 +30,11 @@ public interface PostsService {
     void updatePost(Long id,PostsDto postsDto);
 
     List<PostsDto> findByMemberNickname(String nickname);
+
+
+    void saveComment(CommentDto commentDto);
+
+    void saveChild(CommentDto commentDto);
+
+    List<CommentDto> findCommentByPostId(Long pid);
 }
