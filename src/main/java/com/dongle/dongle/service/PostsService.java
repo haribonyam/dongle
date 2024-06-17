@@ -37,4 +37,6 @@ public interface PostsService {
     void saveChild(CommentDto commentDto);
 
     List<CommentDto> findCommentByPostId(Long pid);
+
+    void deleteCommentById(Long commentId);
 }

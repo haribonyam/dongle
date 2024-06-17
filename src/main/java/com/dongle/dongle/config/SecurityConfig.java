@@ -7,10 +7,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfig{
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
@@ -34,7 +37,7 @@ public class SecurityConfig {
         http
                 .formLogin((auth)->auth.loginPage("/login")
                         .loginProcessingUrl("/loginProc")
-                        .defaultSuccessUrl("/",true)
+                        .successHandler(new SimpleUrlAuthenticationSuccessHandler())
                         .failureUrl("/error")
                         .permitAll()
                 );
@@ -47,6 +50,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 
 
 }

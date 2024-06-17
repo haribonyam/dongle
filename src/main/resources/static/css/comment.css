@@ -1,9 +1,24 @@
 .cbox{
     width:100%;
 }
+.comment-bar{
+    width:80%;
+    height:50px;
+    margin: 0 auto;
+    margin-top:20px;
+    margin-bottom:10px;
+
+    display: flex;
+    align-items: center;
+}
+.comment-bar div{
+    border: 1px solid #ccc;
+    border-radius: 20px;;
+    padding:7px;
+    background-color: #e0e2e4;
+}
 
 .comment-box{
-    border: 1px solid #ccc;
     width:80%;
     margin:0 auto;
     padding-bottom:8px;
@@ -47,14 +62,21 @@ ul{
             overflow: hidden; /* 스크롤바 숨기기 */
 
 }
-.comment-user{
+.comment-info{
+    display: flex;
+    align-items: center;
     font-size:20px;
+    padding-bottom:5px;
 }
-.comment-content div{
+.comment-info div:nth-child(2){
+    font-size: 15px;
+    margin-left:10px;
+}
+.comment-content{
     width:500px;
-    min-height:50px;
     height:auto;
 }
+
 .comment-date div{
     padding : 0 12px;
     font-size:12px;

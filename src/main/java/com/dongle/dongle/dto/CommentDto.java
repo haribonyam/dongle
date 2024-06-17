@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,7 +18,7 @@ public class CommentDto {
     private String content;
     private Long parentId;
     private List<CommentDto> children;
-    private LocalDateTime date;
+    private String date;
 
     public static CommentDto toCommentDto(CommentEntity commentEntity) {
         CommentDto commentDto = new CommentDto();
@@ -25,7 +26,7 @@ public class CommentDto {
         commentDto.setPostId(commentEntity.getPost().getId());
         commentDto.setMemberNickname(commentEntity.getMember().getNickname());
         commentDto.setContent(commentEntity.getContent());
-        commentDto.setDate(commentEntity.getDate());
+        commentDto.setDate(commentEntity.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
         if(commentEntity.getParent()!=null){
             commentDto.setParentId(commentEntity.getParent().getId());

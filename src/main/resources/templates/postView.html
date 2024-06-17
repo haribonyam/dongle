@@ -11,6 +11,7 @@
     <title>문서</title>
 </head>
 <body>
+<div th:replace="~{header :: header}"></div>
 <div class="view-box">
     <ul class="view-content">
         <li class="view-bar">
@@ -48,34 +49,35 @@
 -->
 
 <div class="cbox">
+    <div class="comment-bar">
+        <div>댓글</div>
+    </div>
     <form action="/posts/comment/child" id="comment-reply" method="post">
         <input type="hidden" name="postId" th:value="${postView.id}">
         <input type="hidden" name="memberNickname" th:value="${nickname}">
-        <input type="hidden" name="parentId" value="">
+        <input type="hidden" id="setParent" name="parentId">
+
         <div th:each="comment:${comments}">
             <div class="comment-box">
                 <ul class="reply">
-                    <li class="comment-user"><div th:text="${comment.memberNickname}">작성자</div></li>
-                    <li class="comment-content"><div th:text="${comment.content}">댓글내용</div></li>
+                    <li class="comment-info"><div th:text="${comment.memberNickname}">작성자</div><div th:text="${comment.content}" class="comment-content">댓글내용</div></li>
                     <li class="comment-date">
-                        <div>날짜</div><div onclick="replyView(this.dataset.parent)" th:data-parent="${comment.id}">답글달기</div>
-                        <div>삭제</div>
-                    </li>
+                        <div th:text="${comment.date}">날짜</div><div onclick="replyView(this.dataset.parent)" th:data-parent="${comment.id}">답글달기</div>
+                        <div th:if="${nickname}==${comment.memberNickname}" th:onclick="'commentDelete('+${comment.id}+','+${postView.id}+')'">삭제</div>
                 </ul>
                 <ul class="rereply" th:id="'parent'+${comment.id}" data-display="none">
                     <li id="rereply">
                         <div class="text-box">
-                            <textarea name="content" th:id="'reply'+${comment.id}" class="comment-reply-text" oninput="autoResize(this)"></textarea>
-                            <div onclick="commentReply(${comment.id})"></div>
+                            <textarea th:id="'reply'+${comment.id}" class="comment-reply-text" oninput="autoResize(this)"></textarea>
+                            <div th:onclick="'commentReply('+${comment.id}+')'" ></div>
                         </div>
                     </li>
                 </ul>
                 <ul class="rereply" th:if="${comment.children} != null"  th:each="reply : ${comment.children}">
-                    <li class="comment-user"><div th:text="${reply.memberNickname}"></div></li>
-                    <li class="comment-content"><div th:text="${reply.content}">댓글내용</div></li>
+                    <li class="comment-info"><div th:text="${reply.memberNickname}"></div><div th:text="${reply.content}" class="comment-content">댓글내용</div></li>
                     <li class="comment-date">
-                        <div>날짜</div><div onclick="replyView(this.dataset.parent)" th:data-parent="${reply.parentId}">답글달기</div>
-                        <div>삭제</div>
+                        <div th:text="${reply.date}">날짜</div><div onclick="replyView(this.dataset.parent)" th:data-parent="${reply.parentId}">답글달기</div>
+                        <div th:if="${nickname}==${reply.memberNickname}" th:onclick="'commentDelete('+${reply.id}+','+${postView.id}+')'">삭제</div>
                     </li>
                 </ul>
             </div>
@@ -87,7 +89,7 @@
         <input type="hidden" name="postId" th:value="${postView.id}">
         <input type="hidden" name="memberNickname" th:value="${nickname}">
         <div class="comment-box">
-            <div class="text-box , main-comment"><textarea id="main-comment" class="comment-reply-text" oninput="autoResize(this)"></textarea><div th:onclick="commentSubmit();"></div></div>
+            <div th:if="${nickname}!='anonymousUser'" class="text-box , main-comment"><textarea id="main-comment" class="comment-reply-text" oninput="autoResize(this)" name="content"></textarea><div th:onclick="commentSubmit();"></div></div>
         </div>
     </form>
 </div>
@@ -144,6 +146,10 @@
     /*
         댓글관련
     */
+    function commentDelete(commentId,postId){
+           location.href = "/posts/"+postId+"/comment/"+commentId;
+    }
+
    function commentSubmit(){
     const mainComment = document.getElementById("main-comment");
     if(mainComment.value.trim()===''){
@@ -153,12 +159,13 @@
     }
 }
     function commentReply(parent){
-       const replyText = document.getElementById("reply"+parent);
-       document.getElementByName("parentId").value=parent;
+        const replyText = document.getElementById("reply"+parent);
        if(replyText.value.trim()===''){
             alert("댓글 내용을 입력해 주세요.");
        }else{
-
+            document.getElementById("setParent").value=parent;
+            replyText.setAttribute("name","content");
+            document.getElementById("comment-reply").submit();
        }
     }
 

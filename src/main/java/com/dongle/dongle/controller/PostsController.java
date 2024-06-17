@@ -38,9 +38,10 @@ public class PostsController {
     }
 
     @GetMapping("/{id}")
-    public String contentView(@PathVariable Long id, Model model
-    ){
+    public String contentView(@PathVariable Long id, Model model, CommentDto commentDto
+    ){  String nickname = memberService.getUserNickName();
         PostsDto postsDto = postsService.getPostById(id);
+        model.addAttribute("nickname",nickname);
         model.addAttribute("postView",postsDto);
         model.addAttribute("comments",postsService.findCommentByPostId(id));
         return "postView";
@@ -72,10 +73,21 @@ public class PostsController {
         return "redirect:/posts/"+commentDto.getPostId();
     }
     @PostMapping("/comment/child")
-    public String childSave(CommentDto commentDto){
+    public String childCommentSave(CommentDto commentDto){
 
         postsService.saveChild(commentDto);
 
         return "redirect:/posts/"+commentDto.getPostId();
     }
+
+
+    //비동기 처리 해야하나..
+    @GetMapping("/{postId}/comment/{commentId}")
+    public String commentDelete(@PathVariable Long postId,
+                                @PathVariable Long commentId){
+        postsService.deleteCommentById(commentId);
+
+        return "redirect:/posts/"+postId;
+    }
+
 }

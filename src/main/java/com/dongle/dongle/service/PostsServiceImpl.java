@@ -161,8 +161,8 @@ public class PostsServiceImpl implements  PostsService{
     }
 
     @Override
-    public List<CommentDto> findCommentByPostId(Long pid) {
-        List<CommentEntity> commentEntity = commentRepository.findAllByPostIdAndParentIsNullOrderByAsc(pid);
+    public List<CommentDto> findCommentByPostId(Long postId) {
+        List<CommentEntity> commentEntity = commentRepository.findAllByPostIdAndParentIsNullOrderByAsc(postId);
         List<CommentDto> commentList = new ArrayList<>();
         for(CommentEntity comment : commentEntity){
             commentList.add(CommentDto.toCommentDto(comment));
@@ -170,4 +170,12 @@ public class PostsServiceImpl implements  PostsService{
         return commentList;
     }
 
+    @Override
+    public void deleteCommentById(Long commentId) {
+        try {
+            commentRepository.deleteById(commentId);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }
